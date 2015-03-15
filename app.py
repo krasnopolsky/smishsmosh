@@ -30,6 +30,10 @@ cardtest = SWD.query.filter_by(id=0).first()
 def index():
     return render_template('index.html')
 
+@app.route('/game_engine')
+def engine():
+	return render_template('indexSave.html')
+
 @app.route('/rooms', methods=['POST'])
 def rooms():
 	deck = []
@@ -40,6 +44,7 @@ def rooms():
 		print x.id
 		decknames.append(x.CardName)
 	return render_template('socket.html', decknames=decknames)
+
 
 
 def createdeck():

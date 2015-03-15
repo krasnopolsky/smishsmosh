@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>SWCCG</title>
-<link rel="stylesheet" type="text/css" href="css/indexCSS.css">
-<script src="jquery/jq.js"></script>
-<script src="jquery/jqu.js"></script>
+<link rel="stylesheet" type="text/css" href="static/css/indexCSS.css">
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script>
 
 /*Things to add
@@ -225,7 +226,7 @@ function drawPic(x)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part");
 cp1.style.height = "45%";
-cp1.style.backgroundImage = "url('/img/cardpic.jpg')";
+cp1.style.backgroundImage = "url('static/img/cardpic.jpg')";
 cp1.style.backgroundSize = "250px 100%";
 cp1.style.backgroundColor = randomHexColor();
 cp1.innerHTML = "drawPic ||  "+x;
