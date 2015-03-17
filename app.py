@@ -4,7 +4,7 @@ monkey.patch_all()
 import random
 import time
 from threading import Thread
-from flask import Flask, render_template, session, request, url_for, redirect
+from flask import Flask, render_template, session, request, url_for, redirect, json, jsonify
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
     close_room, disconnect
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -45,6 +45,12 @@ def rooms():
 		decknames.append(x.CardName)
 	return render_template('socket.html', decknames=decknames)
 
+@app.route('/draw_card', methods=['GET', 'POST'])
+def draw_card():
+    cardID = request.form['randCard']
+    print cardID
+    card = (SWD.query.filter_by(id=cardID).first())
+    return jsonify(cardname=card.CardName)
 
 
 def createdeck():

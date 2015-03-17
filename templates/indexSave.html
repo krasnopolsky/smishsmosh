@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SWCCG</title>
-<link rel="stylesheet" type="text/css" href="/gameEngine/smishsmosh/static/css/indexCSS.css">
+<link rel="stylesheet" type="text/css" href="/smishsmosh/static/css/indexCSS.css">
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -19,7 +19,7 @@ add card management
 */
 
 //**********card type Logic**************
-function drawCard(d, x)  {
+function drawCard(d, x, c)  {
 var div = d; //div to draw card onto
 var cardId = x; //the card's DB id number
 
@@ -74,7 +74,7 @@ switch(str)  {
 		drawCard3(d, x);
 		break;
 	case "15":
-		drawCard4(d, x);
+		drawCard4(d, x, c);
 		break;
 	case "Location":
 		drawSite(d, x);
@@ -187,7 +187,7 @@ div.appendChild(drawInfo(d, x));
 div.appendChild(drawText(d, x));
 }
 
-function drawCard4(d, x)  {
+function drawCard4(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
 div.appendChild(drawTop(d, x));
@@ -196,7 +196,7 @@ div.appendChild(drawPic(d, x));
 div.appendChild(drawInfo(d, x));
 div.appendChild(drawLeft(d, x));
 div.appendChild(drawRight(d, x));
-div.appendChild(drawText(d, x));
+div.appendChild(drawText(d, x, c));
 
 
 }
@@ -226,7 +226,7 @@ function drawPic(d, x)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "45%";
-cp1.style.backgroundImage = "url('/gameEngine/smishsmosh/static/img/cardpic.jpg')";
+cp1.style.backgroundImage = "url('/smishsmosh/static/img/cardpic.jpg')";
 cp1.style.backgroundSize = "250px 100%";
 cp1.style.backgroundColor = randomHexColor();
 cp1.innerHTML = "drawPic ||  "+x;
@@ -254,14 +254,14 @@ cp1.innerHTML = "Power || Defense || Movement";
 return cp1;
 }
 
-function drawText(d, x)  {
+function drawText(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "29%";
 cp1.style.paddingLeft = "8%";
 cp1.style.paddingRight = "8%";
 cp1.style.backgroundColor = randomHexColor();
-cp1.innerHTML = "drawText ||  The real meat of the game. This is what puts the 'c' in swccg. This shit right here is where it is at. Read this shit to win.";
+cp1.innerHTML = "drawText ||" + c.cardname + " The real meat of the game. This is what puts the 'c' in swccg. This shit right here is where it is at. Read this shit to win.";
 return cp1;
 }
 
@@ -315,13 +315,17 @@ var c = document.getElementById("cardHolder");
 	imgDiv.style.top = "0px";
 	imgDiv.style.left = "0px";
 	imgDiv.style.backgroundColor = randomHexColor();
-	imgDiv.style.backgroundImage = "url('/gameEngine/smishsmosh/static/img/darkBack.jpg')";
+	imgDiv.style.backgroundImage = "url('/smishsmosh/static/img/darkBack.jpg')";
 	imgDiv.style.zIndex = cardCounter;
 	imgDiv.setAttribute("onclick", "bringToFront("+cardCounter+")");
 	imgDiv.setAttribute("ondblclick", "flipCard("+cardCounter+")");
 	c.appendChild(imgDiv);
+    
+    $.post("/draw_card", { "randCard": randCard }, function(data) {
+    	drawCard(cardCounter, randCard, data);
+    });
 
-	drawCard(cardCounter, randCard);
+	//drawCard(cardCounter, randCard);
 
 	makeDraggable(cardCounter);
 	
