@@ -32,95 +32,95 @@ str = "15";
 switch(str)  {
 
 	case "1":
-		drawSite(d, x);
+		drawSite(d, x, c);
 		break;
 	case "2":
-		drawCreature(d, x);
+		drawCreature(d, x, c);
 		break;
 	case "3":
-		drawBasic(d, x);
+		drawBasic(d, x, c);
 		break;
 	case "4":
-		drawBasic(d, x);
+		drawBasic(d, x, c);
 		break;
 	case "5":
-		drawCard1(d, x);
+		drawCard1(d, x, c);
 		break;
 	case "6":
-		drawCard1(d, x);
+		drawCard1(d, x, c);
 		break;
 	case "7":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "8":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "9":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "10":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "11":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "12":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "13":
-		drawCard3(d, x);
+		drawCard3(d, x, c);
 		break;
 	case "14":
-		drawCard3(d, x);
+		drawCard3(d, x, c);
 		break;
 	case "15":
 		drawCard4(d, x, c);
 		break;
 	case "Location":
-		drawSite(d, x);
+		drawSite(d, x, c);
 		break;
 	case "Creature":
-		drawCreature(d, x);
+		drawCreature(d, x, c);
 		break;
 	case "Admiral's Order":
-		drawBasic(d, x);
+		drawBasic(d, x, c);
 		break;
 	case "Objective":
 
-		drawBasic(d, x);
+		drawBasic(d, x, c);
 		break;
 	case "Epic Event":
-		drawCard1(d, x);
+		drawCard1(d, x, c);
 		break;
 	case "Jedi Test":
-		drawCard1(d, x);
+		drawCard1(d, x, c);
 		break;
 	case "Defensive Shield":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "Effect":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "Interrupt":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "Podracer":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "Weapon":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "Device":
-		drawCard2(d, x);
+		drawCard2(d, x, c);
 		break;
 	case "Starship":
-		drawCard3(d, x);
+		drawCard3(d, x, c);
 		break;
 	case "Vehicle":
-		drawCard3(d, x);
+		drawCard3(d, x, c);
 		break;
 	case "Character":
-		drawCard4(d, x);
+		drawCard4(d, x, c);
 		break;
 	default:
 		alert("we lost");
@@ -130,72 +130,72 @@ switch(str)  {
 
 //***********Drawing the card**************/
 
-function drawBasic(d, x)  {
+function drawBasic(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawBasic";
-div.appendChild(drawTop(d, x));
-div.appendChild(drawPic(d, x));
-div.appendChild(drawText(d, x));
+div.appendChild(drawTop(d, x, c));
+div.appendChild(drawPic(d, x, c));
+div.appendChild(drawText(d, x, c));
 
 
 }
 
-function drawSite(d, x)  {
+function drawSite(d, x, c)  {
 
 var div = document.getElementById(d);
-div.innerHTML = "drawSite --fuck you site!!";
+div.innerHTML = c.CardName + "drawSite --fuck you site!!";
 
 }
 
-function drawCreature(d, x)  {
+function drawCreature(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCreature "+x;
-div.appendChild(drawTop(d, x));
-div.appendChild(drawLore(d, x));
-div.appendChild(drawPic(d, x));
-div.appendChild(drawInfo(d, x));
-div.appendChild(drawText(d, x));
+div.appendChild(drawTop(d, x, c));
+div.appendChild(drawLore(d, x, c));
+div.appendChild(drawPic(d, x, c));
+div.appendChild(drawInfo(d, x, c));
+div.appendChild(drawText(d, x, c));
 }
 
-function drawCard1(d, x)  {
+function drawCard1(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard1 "+x;
-div.appendChild(drawTop(d, x));
-div.appendChild(drawPic(d, x));
-div.appendChild(drawBar(d, x));
-div.appendChild(drawText(d, x));
+div.appendChild(drawTop(d, x, c));
+div.appendChild(drawPic(d, x, c));
+div.appendChild(drawBar(d, x, c));
+div.appendChild(drawText(d, x, c));
 }
 
-function drawCard2(d, x)  {
+function drawCard2(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
-div.appendChild(drawTop(d, x));
-div.appendChild(drawLore(d, x));
-div.appendChild(drawPic(d, x));
-div.appendChild(drawBar(d, x));
-div.appendChild(drawText(d, x));
+div.appendChild(drawTop(d, x, c));
+div.appendChild(drawLore(d, x, c));
+div.appendChild(drawPic(d, x, c));
+div.appendChild(drawBar(d, x, c));
+div.appendChild(drawText(d, x, c));
 }
 
-function drawCard3(d, x)  {
+function drawCard3(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
-div.appendChild(drawTop(d, x));
-div.appendChild(drawLore(d, x));
-div.appendChild(drawPic(d, x));
-div.appendChild(drawBar(d, x));
-div.appendChild(drawInfo(d, x));
-div.appendChild(drawText(d, x));
+div.appendChild(drawTop(d, x, c));
+div.appendChild(drawLore(d, x, c));
+div.appendChild(drawPic(d, x, c));
+div.appendChild(drawBar(d, x, c));
+div.appendChild(drawInfo(d, x, c));
+div.appendChild(drawText(d, x, c));
 }
 
 function drawCard4(d, x, c)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
-div.appendChild(drawTop(d, x));
-div.appendChild(drawLore(d, x));
-div.appendChild(drawPic(d, x));
-div.appendChild(drawInfo(d, x));
-div.appendChild(drawLeft(d, x));
-div.appendChild(drawRight(d, x));
+div.appendChild(drawTop(d, x, c));
+div.appendChild(drawLore(d, x, c));
+div.appendChild(drawPic(d, x, c));
+div.appendChild(drawInfo(d, x, c));
+div.appendChild(drawLeft(d, x, c));
+div.appendChild(drawRight(d, x, c));
 div.appendChild(drawText(d, x, c));
 
 
@@ -203,26 +203,26 @@ div.appendChild(drawText(d, x, c));
 
 //*********Drawing of Card Parts***************//
 
-function drawTop(d, x)  {
+function drawTop(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "8%";
 cp1.style.backgroundColor = randomHexColor();
-cp1.innerHTML = "Card type || Card name || Destiny #";
+cp1.innerHTML = c.cardtype + " || " + c.cardname + " || " + c.destiny;
 return cp1;
 }
 
-function drawLore(d, x)  {
+function drawLore(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "10%";
 cp1.style.fontSize = "8px";
 cp1.style.backgroundColor = randomHexColor();
-cp1.innerHTML = "drawLore || some shit about the card that only the super nerds read and care about. Look at this nerd reading the lore. Nerd.";
+cp1.innerHTML = c.lore;
 return cp1;
 }
 
-function drawPic(d, x)  {
+function drawPic(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "45%";
@@ -234,7 +234,7 @@ cp1.innerHTML = "drawPic ||  "+x;
 return cp1;
 }
 
-function drawBar(d, x)  {
+function drawBar(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "5%";
@@ -244,13 +244,13 @@ cp1.innerHTML = "drawBar ||  "+x;
 return cp1;
 }
 
-function drawInfo(d, x)  {
+function drawInfo(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "8%";
 cp1.style.textAlign = "center";
 cp1.style.backgroundColor = randomHexColor();
-cp1.innerHTML = "Power || Defense || Movement";
+cp1.innerHTML = "Power: "+c.power+" || Ability:"+c.ability;
 return cp1;
 }
 
@@ -261,11 +261,11 @@ cp1.style.height = "29%";
 cp1.style.paddingLeft = "8%";
 cp1.style.paddingRight = "8%";
 cp1.style.backgroundColor = randomHexColor();
-cp1.innerHTML = "drawText ||" + c.cardname + " The real meat of the game. This is what puts the 'c' in swccg. This shit right here is where it is at. Read this shit to win.";
+cp1.innerHTML = c.gametext;
 return cp1;
 }
 
-function drawLeft(d, x)  {
+function drawLeft(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "10%";
@@ -276,7 +276,7 @@ cp1.style.cssFloat="left";
 return cp1;
 }
 
-function drawRight(d, x)  {
+function drawRight(d, x, c)  {
 var cp1 = document.createElement("div");
 cp1.setAttribute("class", "part"+d);
 cp1.style.height = "10%";
@@ -362,7 +362,9 @@ var c = document.getElementById("cardHolder");
 	imgDiv.setAttribute("ondblclick", "flipCard("+cardCounter+")");
 	c.appendChild(imgDiv);
 
-	drawCard(cardCounter, cId);
+	$.post("/draw_card", { "randCard": cId }, function(data) {
+	drawCard(cardCounter, cId, data);
+	});
 
 	makeDraggable(cardCounter);
 
