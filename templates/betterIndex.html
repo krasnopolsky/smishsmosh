@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SWCCG</title>
+<link rel="stylesheet" type="text/css" href="css/indexCSS.css">
+<script src="jquery/jq.js"></script>
+<script src="jquery/jqu.js"></script>
+<script src="js/drawCard.js"></script>
+<script src="js/moveCard.js"></script>
+<script>
+
+/*Things to add
+add card to top 0 right 0 or anywhere really
+add card management
+	add card
+	remove card
+
+
+*/
+
+
+//************adding cards to table****************//
+var cardCounter = 0;
+
+function addRandomCard() {
+
+var randCard = Math.floor( Math.random() * 3442 ) + 1;
+
+cardCounter++;
+
+var c = document.getElementById("cardTable");
+
+var cardH = 343;
+var cardW = 250; 
+
+	var imgDiv = document.createElement("div");
+	imgDiv.setAttribute("id", cardCounter);
+	imgDiv.setAttribute("cid", randCard);
+	imgDiv.setAttribute("class", "divHolder");
+	imgDiv.style.height = cardH+"px";
+	imgDiv.style.width = cardW+"px";
+	imgDiv.style.backgroundColor = randomHexColor();
+//	imgDiv.style.backgroundImage = "url('img/'+i+'.JPG')";
+	imgDiv.style.zIndex = cardCounter;
+	imgDiv.setAttribute("onclick", "bringToFront("+cardCounter+")");
+	c.appendChild(imgDiv);
+
+	drawCard(cardCounter, randCard);
+
+	makeDraggable(cardCounter);
+	
+	
+
+}
+
+function makeDraggable(x) {
+$( "#"+x ).draggable();
+}
+
+function addThisCard()  {
+var cId = document.getElementById("cardId").value;
+
+cardCounter++;
+
+var c = document.getElementById("cardTable");
+
+var cardH = 343;
+var cardW = 250; 
+
+	var imgDiv = document.createElement("div");
+	imgDiv.setAttribute("id", cardCounter);
+	imgDiv.setAttribute("cid", cId);
+	imgDiv.setAttribute("class", "divHolder");
+	imgDiv.style.height = cardH+"px";
+	imgDiv.style.width = cardW+"px";
+	imgDiv.style.top = "0px";
+	imgDiv.style.left = "0px";
+	imgDiv.style.backgroundColor = randomHexColor();
+//	imgDiv.style.backgroundImage = "url('img/'+i+'.JPG')";
+	imgDiv.style.zIndex = cardCounter;
+	imgDiv.setAttribute("onclick", "bringToFront("+cardCounter+")");
+	c.appendChild(imgDiv);
+
+	drawCard(cardCounter, cId);
+
+	makeDraggable(cardCounter);
+
+
+}
+
+//**************rand functions*************//
+
+function bringToFront(x)  {
+for(var i = 1; i <= cardCounter; i++)  {
+	e = document.getElementById(i).style.zIndex = i;
+	}
+document.getElementById(x).style.zIndex = i++;
+}
+
+function randomHexColor() {
+return '#'+Math.floor(Math.random()*16777215).toString(16);
+
+}
+
+</script>
+</head>
+
+<body>
+Coming at a later date. Be patient we are lazy.
+<br>
+
+<div id="cardTable" onclick="addRandomCard()">
+This is the card table. Be nice to it. Respect the wood.
+
+</div>
+
+
+</body>
+</html>

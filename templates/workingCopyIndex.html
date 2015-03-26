@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>SWCCG</title>
+<link rel="stylesheet" type="text/css" href="css/indexCSS.css">
+<script src="jquery-ui-1.11.4.custom/jquery-ui.js"></script>
+<script src="jquery-ui-1.11.4.custom/external/jquery.js"></script>
+
+<script src="js/cardTable1.js"></script>
+<script src="js/randomFun.js"></script>
+
+
+</head>
+
+<body>
+Coming at a later date. Be patient we are lazy.
+
+<br>
+card ID:<br>
+<input type="text" id="cardId">
+
+<div id="getCardButton" onclick="addThisCard()">Add ^^^ card</div>
+
+
+<div id="button" onclick="addRandomCard()">Add random card</div>
+
+
+<div id="cardTable">
+This is the card table. Be nice to it. Respect the wood.
+<table style="width:100%">
+  <tr>
+<td>
+      <div>
+      <div>add border to card divs</div>
+      <div onclick="changeCSS('none')">none</div>
+      <div onclick="changeCSS('dotted')">dotted</div>
+      <div onclick="changeCSS('dashed')">dashed</div>
+      <div onclick="changeCSS('solid')">solid</div>
+      <div onclick="changeCSS('double')">double</div>
+      <div onclick="changeCSS('groove')">groove</div>
+      <div onclick="changeCSS('ridge')">ridge</div>
+      <div onclick="changeCSS('inset')">inset</div>
+      <div onclick="changeCSS('outset'")">outset</div>
+      </div>
+    </td>
+    <td>
+	<div>change Size</div>
+	<div onclick="changeCSS2('1px 1px 1px 1px')">1111</div>
+	<div onclick="changeCSS2('1px 0px 0px 0px')">1000</div>
+	<div onclick="changeCSS2('0px 1px 0px 0px')">0100</div>
+	<div onclick="changeCSS2('0px 0px 1px 0px')">0010</div>
+	<div onclick="changeCSS2('0px 0px 0px 1px')">0001</div>
+	<div onclick="changeCSS2('1px 0px 0px 1px')">1001</div>
+    </td>
+ 
+    
+<td>
+<div>toggle border pattern</div>
+<div onclick="changeCSS2('1px 1px 1px 1px')">1111</div>
+<div onclick="changeCSS2('1px 0px 0px 0px')">1000</div>
+<div onclick="changeCSS2('0px 1px 0px 0px')">0100</div>
+<div onclick="changeCSS2('0px 0px 1px 0px')">0010</div>
+<div onclick="changeCSS2('0px 0px 0px 1px')">0001</div>
+<div onclick="changeCSS2('1px 0px 0px 1px')">1001</div>
+</div>
+</td>
+
+<td>
+<div>
+<div>toggle border to card divholder's divs</div>
+<div onclick="changeCSS('none')">none</div>
+<div onclick="changeCSS('dotted')">dotted</div>
+<div onclick="changeCSS('dashed')">dashed</div>
+<div onclick="changeCSS('solid')">solid</div>
+<div onclick="changeCSS('double')">double</div>
+<div onclick="changeCSS('groove')">groove</div>
+<div onclick="changeCSS('ridge')">ridge</div>
+<div onclick="changeCSS('inset')">inset</div>
+<div onclick="changeCSS('outset'")">outset</div>
+</div>
+</td>
+
+<td>
+<div>
+<div>toggle border size</div>
+<div onclick="changeCSS2('1px 1px 1px 1px')">1111</div>
+<div onclick="changeCSS2('1px 0px 0px 0px')">1000</div>
+<div onclick="changeCSS2('0px 1px 0px 0px')">0100</div>
+<div onclick="changeCSS2('0px 0px 1px 0px')">0010</div>
+<div onclick="changeCSS2('0px 0px 0px 1px')">0001</div>
+<div onclick="changeCSS2('1px 0px 0px 1px')">1001</div>
+</div>
+</td>
+
+<td>
+<div>
+<div>toggle border to card</div>
+<div onclick="changeCSS3('none')">none</div>
+<div onclick="changeCSS3('dotted')">dotted</div>
+<div onclick="changeCSS3('dashed')">dashed</div>
+<div onclick="changeCSS3('solid')">solid</div>
+<div onclick="changeCSS3('double')">double</div>
+<div onclick="changeCSS3('groove')">groove</div>
+<div onclick="changeCSS3('ridge')">ridge</div>
+<div onclick="changeCSS3('inset')">inset</div>
+<div onclick="changeCSS3('outset'")">outset</div>
+</div>
+</td>
+
+<td>
+<div>
+<div>toggle padding</div>
+<div onclick="changeCSS4('0px')">0px</div>
+<div onclick="changeCSS4('1px')">1px</div>
+<div onclick="changeCSS4('2px')">2px</div>
+<div onclick="changeCSS4('3px')">3px</div>
+<div onclick="changeCSS4('4px')">4px</div>
+<div onclick="changeCSS4('5px')">5px</div>
+<div onclick="changeCSS4('6px')">6px</div>
+</div>
+</td>
+
+<td>
+  <div>
+    <div>toggle changeColor</div>
+    <div onclick="changeColor('black')">black</div>
+    <div onclick="changeColor('yellow')">yellow</div>
+    <div onclick="changeColor('green')">green</div>
+    <div onclick="changeColor('red')">red</div>
+    <div onclick="changeColor('purple')">purple</div>
+    <div onclick="changeColor('blue')">blue</div>
+    <div onclick="changeColor('white')">white</div>
+    </div>
+  </div>
+</td>
+
+<td>
+  <div>
+    <div>toggle changeTextColor</div>
+    <div onclick="changeTextColor('black')">black</div>
+    <div onclick="changeTextColor('yellow')">yellow</div>
+    <div onclick="changeTextColor('green')">green</div>
+    <div onclick="changeTextColor('red')">red</div>
+    <div onclick="changeTextColor('purple')">purple</div>
+    <div onclick="changeTextColor('blue')">blue</div>
+    <div onclick="changeTextColor('white')">white</div>
+    </div>
+  </div>
+</td>
+
+  <tr>
+    <td>
+  <div>
+    <div>toggle moveCards</div>
+    <div onclick="moveCards('0px', '0px')">line</div>
+    <div onclick="">stack</div>
+    </div>
+  </div>
+</td>
+  </tr>
+</table>
+</div>
+</body>
+</html>

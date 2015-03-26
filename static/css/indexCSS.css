@@ -1,0 +1,16 @@
+body
+{
+background-color: #d0e4fe;
+}
+.cardTable
+{
+background-color: #000000;
+}
+#divHolder
+{
+top:0px;
+left:0px;
+}
+table, th, td {
+    border: 1px solid black;
+}
