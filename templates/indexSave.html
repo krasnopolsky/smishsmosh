@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>SWCCG</title>
-<link rel="stylesheet" type="text/css" href="static/css/indexCSS.css">
+<link rel="stylesheet" type="text/css" href="/gameEngine/smishsmosh/static/css/indexCSS.css">
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -133,9 +133,9 @@ switch(str)  {
 function drawBasic(d, x)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawBasic";
-div.appendChild(drawTop(x));
-div.appendChild(drawPic(x));
-div.appendChild(drawText(x));
+div.appendChild(drawTop(d, x));
+div.appendChild(drawPic(d, x));
+div.appendChild(drawText(d, x));
 
 
 }
@@ -150,92 +150,93 @@ div.innerHTML = "drawSite --fuck you site!!";
 function drawCreature(d, x)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCreature "+x;
-div.appendChild(drawTop(x));
-div.appendChild(drawLore(x));
-div.appendChild(drawPic(x));
-div.appendChild(drawInfo(x));
-div.appendChild(drawText(x));
+div.appendChild(drawTop(d, x));
+div.appendChild(drawLore(d, x));
+div.appendChild(drawPic(d, x));
+div.appendChild(drawInfo(d, x));
+div.appendChild(drawText(d, x));
 }
 
 function drawCard1(d, x)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard1 "+x;
-div.appendChild(drawTop(x));
-div.appendChild(drawPic(x));
-div.appendChild(drawBar(x));
-div.appendChild(drawText(x));
+div.appendChild(drawTop(d, x));
+div.appendChild(drawPic(d, x));
+div.appendChild(drawBar(d, x));
+div.appendChild(drawText(d, x));
 }
 
 function drawCard2(d, x)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
-div.appendChild(drawTop(x));
-div.appendChild(drawLore(x));
-div.appendChild(drawPic(x));
-div.appendChild(drawBar(x));
-div.appendChild(drawText(x));
+div.appendChild(drawTop(d, x));
+div.appendChild(drawLore(d, x));
+div.appendChild(drawPic(d, x));
+div.appendChild(drawBar(d, x));
+div.appendChild(drawText(d, x));
 }
 
 function drawCard3(d, x)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
-div.appendChild(drawTop(x));
-div.appendChild(drawLore(x));
-div.appendChild(drawPic(x));
-div.appendChild(drawBar(x));
-div.appendChild(drawInfo(x));
-div.appendChild(drawText(x));
+div.appendChild(drawTop(d, x));
+div.appendChild(drawLore(d, x));
+div.appendChild(drawPic(d, x));
+div.appendChild(drawBar(d, x));
+div.appendChild(drawInfo(d, x));
+div.appendChild(drawText(d, x));
 }
 
 function drawCard4(d, x)  {
 var div = document.getElementById(d);
 //div.innerHTML = "drawCard "+x;
-div.appendChild(drawTop(x));
-div.appendChild(drawLore(x));
-div.appendChild(drawPic(x));
-div.appendChild(drawInfo(x));
-div.appendChild(drawLeft(x));
-div.appendChild(drawRight(x));
-div.appendChild(drawText(x));
+div.appendChild(drawTop(d, x));
+div.appendChild(drawLore(d, x));
+div.appendChild(drawPic(d, x));
+div.appendChild(drawInfo(d, x));
+div.appendChild(drawLeft(d, x));
+div.appendChild(drawRight(d, x));
+div.appendChild(drawText(d, x));
 
 
 }
 
 //*********Drawing of Card Parts***************//
 
-function drawTop(x)  {
+function drawTop(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "8%";
 cp1.style.backgroundColor = randomHexColor();
 cp1.innerHTML = "Card type || Card name || Destiny #";
 return cp1;
 }
 
-function drawLore(x)  {
+function drawLore(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "10%";
-cp1.style.fontSize = "x-small";
+cp1.style.fontSize = "8px";
 cp1.style.backgroundColor = randomHexColor();
 cp1.innerHTML = "drawLore || some shit about the card that only the super nerds read and care about. Look at this nerd reading the lore. Nerd.";
 return cp1;
 }
 
-function drawPic(x)  {
+function drawPic(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "45%";
-cp1.style.backgroundImage = "url('static/img/cardpic.jpg')";
+cp1.style.backgroundImage = "url('/gameEngine/smishsmosh/static/img/cardpic.jpg')";
 cp1.style.backgroundSize = "250px 100%";
 cp1.style.backgroundColor = randomHexColor();
 cp1.innerHTML = "drawPic ||  "+x;
+
 return cp1;
 }
 
-function drawBar(x)  {
+function drawBar(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "5%";
 cp1.style.textAlign = "center";
 cp1.style.backgroundColor = randomHexColor();
@@ -243,9 +244,9 @@ cp1.innerHTML = "drawBar ||  "+x;
 return cp1;
 }
 
-function drawInfo(x)  {
+function drawInfo(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "8%";
 cp1.style.textAlign = "center";
 cp1.style.backgroundColor = randomHexColor();
@@ -253,20 +254,20 @@ cp1.innerHTML = "Power || Defense || Movement";
 return cp1;
 }
 
-function drawText(x)  {
+function drawText(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "29%";
 cp1.style.paddingLeft = "8%";
 cp1.style.paddingRight = "8%";
 cp1.style.backgroundColor = randomHexColor();
-cp1.innerHTML = "drawText ||  The read meat of the game. This is what puts the 'c' in swccg. This shit right here is where it is at. Read this shit to win.";
+cp1.innerHTML = "drawText ||  The real meat of the game. This is what puts the 'c' in swccg. This shit right here is where it is at. Read this shit to win.";
 return cp1;
 }
 
-function drawLeft(x)  {
+function drawLeft(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "10%";
 cp1.style.backgroundColor = randomHexColor();
 cp1.style.width = "5%";
@@ -275,9 +276,9 @@ cp1.style.cssFloat="left";
 return cp1;
 }
 
-function drawRight(x)  {
+function drawRight(d, x)  {
 var cp1 = document.createElement("div");
-cp1.setAttribute("class", "part");
+cp1.setAttribute("class", "part"+d);
 cp1.style.height = "10%";
 cp1.style.width = "5%";
 cp1.style.backgroundColor = randomHexColor();
@@ -286,8 +287,15 @@ cp1.style.cssFloat="right";
 return cp1;
 }
 
-//************adding cards to table****************//
+
+//************globals ****************//
 var cardCounter = 0;
+//var cardH = 167;
+//var cardW = 120;
+var cardH = 350;
+var cardW = 251;
+//************adding cards to table****************//
+
 
 function addRandomCard() {
 
@@ -295,10 +303,8 @@ var randCard = Math.floor( Math.random() * 3442 ) + 1;
 
 cardCounter++;
 
-var c = document.getElementById("cardTable");
+var c = document.getElementById("cardHolder");
 
-var cardH = 343;
-var cardW = 250; 
 
 	var imgDiv = document.createElement("div");
 	imgDiv.setAttribute("id", cardCounter);
@@ -309,9 +315,10 @@ var cardW = 250;
 	imgDiv.style.top = "0px";
 	imgDiv.style.left = "0px";
 	imgDiv.style.backgroundColor = randomHexColor();
-//	imgDiv.style.backgroundImage = "url('img/'+i+'.JPG')";
+	imgDiv.style.backgroundImage = "url('/gameEngine/smishsmosh/static/img/darkBack.jpg')";
 	imgDiv.style.zIndex = cardCounter;
 	imgDiv.setAttribute("onclick", "bringToFront("+cardCounter+")");
+	imgDiv.setAttribute("ondblclick", "flipCard("+cardCounter+")");
 	c.appendChild(imgDiv);
 
 	drawCard(cardCounter, randCard);
@@ -331,10 +338,9 @@ var cId = document.getElementById("cardId").value;
 
 cardCounter++;
 
-var c = document.getElementById("cardTable");
+var c = document.getElementById("cardHolder");
 
-var cardH = 343;
-var cardW = 250; 
+ 
 
 	var imgDiv = document.createElement("div");
 	imgDiv.setAttribute("id", cardCounter);
@@ -345,9 +351,11 @@ var cardW = 250;
 	imgDiv.style.top = "0px";
 	imgDiv.style.left = "0px";
 	imgDiv.style.backgroundColor = randomHexColor();
-//	imgDiv.style.backgroundImage = "url('img/'+i+'.JPG')";
+	imgDiv.style.backgroundImage = "url('/gameEngine/smishsmosh/static/img/darkBack.jpg')";
 	imgDiv.style.zIndex = cardCounter;
 	imgDiv.setAttribute("onclick", "bringToFront("+cardCounter+")");
+	imgDiv.setAttribute("flipped", "0");
+	imgDiv.setAttribute("ondblclick", "flipCard("+cardCounter+")");
 	c.appendChild(imgDiv);
 
 	drawCard(cardCounter, cId);
@@ -441,6 +449,21 @@ else  {
 
 }
 
+function flipCard(d)  {
+var p = document.getElementsByClassName("part"+d);
+if(p[0].style.visibility == "hidden")  {
+	for(var i = 0; i < p.length; i++)  {
+		p[i].style.visibility = "visible";
+		}
+}
+else  {
+	for(var i = 0; i < p.length; i++)  {
+		p[i].style.visibility = "hidden";
+		}
+}
+
+}
+
 </script>
 </head>
 
@@ -456,143 +479,11 @@ card ID:<br>
 
 <div id="button" onclick="addRandomCard()">Add random card</div>
 
-
+<div id="cardHolder"></div>
 <div id="cardTable">
 This is the card table. Be nice to it. Respect the wood.
-<table style="width:100%">
-  <tr>
-<td>
-      <div>
-      <div>add border to card divs</div>
-      <div onclick="changeCSS('none')">none</div>
-      <div onclick="changeCSS('dotted')">dotted</div>
-      <div onclick="changeCSS('dashed')">dashed</div>
-      <div onclick="changeCSS('solid')">solid</div>
-      <div onclick="changeCSS('double')">double</div>
-      <div onclick="changeCSS('groove')">groove</div>
-      <div onclick="changeCSS('ridge')">ridge</div>
-      <div onclick="changeCSS('inset')">inset</div>
-      <div onclick="changeCSS('outset'")">outset</div>
-      </div>
-    </td>
-    <td>
-	<div>change Size</div>
-	<div onclick="changeCSS2('1px 1px 1px 1px')">1111</div>
-	<div onclick="changeCSS2('1px 0px 0px 0px')">1000</div>
-	<div onclick="changeCSS2('0px 1px 0px 0px')">0100</div>
-	<div onclick="changeCSS2('0px 0px 1px 0px')">0010</div>
-	<div onclick="changeCSS2('0px 0px 0px 1px')">0001</div>
-	<div onclick="changeCSS2('1px 0px 0px 1px')">1001</div>
-    </td>
- 
-    
-<td>
-<div>toggle border pattern</div>
-<div onclick="changeCSS2('1px 1px 1px 1px')">1111</div>
-<div onclick="changeCSS2('1px 0px 0px 0px')">1000</div>
-<div onclick="changeCSS2('0px 1px 0px 0px')">0100</div>
-<div onclick="changeCSS2('0px 0px 1px 0px')">0010</div>
-<div onclick="changeCSS2('0px 0px 0px 1px')">0001</div>
-<div onclick="changeCSS2('1px 0px 0px 1px')">1001</div>
 </div>
-</td>
 
-<td>
-<div>
-<div>toggle border to card divholder's divs</div>
-<div onclick="changeCSS('none')">none</div>
-<div onclick="changeCSS('dotted')">dotted</div>
-<div onclick="changeCSS('dashed')">dashed</div>
-<div onclick="changeCSS('solid')">solid</div>
-<div onclick="changeCSS('double')">double</div>
-<div onclick="changeCSS('groove')">groove</div>
-<div onclick="changeCSS('ridge')">ridge</div>
-<div onclick="changeCSS('inset')">inset</div>
-<div onclick="changeCSS('outset'")">outset</div>
-</div>
-</td>
 
-<td>
-<div>
-<div>toggle border size</div>
-<div onclick="changeCSS2('1px 1px 1px 1px')">1111</div>
-<div onclick="changeCSS2('1px 0px 0px 0px')">1000</div>
-<div onclick="changeCSS2('0px 1px 0px 0px')">0100</div>
-<div onclick="changeCSS2('0px 0px 1px 0px')">0010</div>
-<div onclick="changeCSS2('0px 0px 0px 1px')">0001</div>
-<div onclick="changeCSS2('1px 0px 0px 1px')">1001</div>
-</div>
-</td>
-
-<td>
-<div>
-<div>toggle border to card</div>
-<div onclick="changeCSS3('none')">none</div>
-<div onclick="changeCSS3('dotted')">dotted</div>
-<div onclick="changeCSS3('dashed')">dashed</div>
-<div onclick="changeCSS3('solid')">solid</div>
-<div onclick="changeCSS3('double')">double</div>
-<div onclick="changeCSS3('groove')">groove</div>
-<div onclick="changeCSS3('ridge')">ridge</div>
-<div onclick="changeCSS3('inset')">inset</div>
-<div onclick="changeCSS3('outset'")">outset</div>
-</div>
-</td>
-
-<td>
-<div>
-<div>toggle padding</div>
-<div onclick="changeCSS4('0px')">0px</div>
-<div onclick="changeCSS4('1px')">1px</div>
-<div onclick="changeCSS4('2px')">2px</div>
-<div onclick="changeCSS4('3px')">3px</div>
-<div onclick="changeCSS4('4px')">4px</div>
-<div onclick="changeCSS4('5px')">5px</div>
-<div onclick="changeCSS4('6px')">6px</div>
-</div>
-</td>
-
-<td>
-  <div>
-    <div>toggle changeColor</div>
-    <div onclick="changeColor('black')">black</div>
-    <div onclick="changeColor('yellow')">yellow</div>
-    <div onclick="changeColor('green')">green</div>
-    <div onclick="changeColor('red')">red</div>
-    <div onclick="changeColor('purple')">purple</div>
-    <div onclick="changeColor('blue')">blue</div>
-    <div onclick="changeColor('white')">white</div>
-    </div>
-  </div>
-</td>
-
-<td>
-  <div>
-    <div>toggle changeTextColor</div>
-    <div onclick="changeTextColor('black')">black</div>
-    <div onclick="changeTextColor('yellow')">yellow</div>
-    <div onclick="changeTextColor('green')">green</div>
-    <div onclick="changeTextColor('red')">red</div>
-    <div onclick="changeTextColor('purple')">purple</div>
-    <div onclick="changeTextColor('blue')">blue</div>
-    <div onclick="changeTextColor('white')">white</div>
-    </div>
-  </div>
-</td>
-
-  <tr>
-    <td>
-  <div>
-    <div>toggle moveCards</div>
-	<input type="text" id="toX" value="100" />
-	<input type="text" id="toY" value="100" /
-    <div onclick="moveCards(parseInt($('#toX').val()), parseInt($('#toY').val()))">line</div>
-    <div onclick="">stack</div>
-    </div>
-  </div>
-</td>
-  </tr>
-</table>
-</div>
 </body>
 </html>
