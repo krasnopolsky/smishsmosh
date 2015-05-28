@@ -7,7 +7,21 @@
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        //$(document).ready(function(){
+            namespace = '/test'; // change to an empty string to use the global namespace
+            // the socket.io documentation recommends sending an explicit package upon connection
+            // this is specially important when using the global namespace
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+
+
+            socket.on('my response', function(data) {
+			console.log(data);
+			drawCard(cardCounter, data.id, data);
+				});
+            
 
 /*Things to add
 add card to top 0 right 0 or anywhere really
@@ -15,7 +29,10 @@ add card management
 	add card
 	remove card
 
-
+Kraz Things to Add:
+Further define Pete Jobs
+Alter this code into a "game room" instance
+Pass in "Deck" objects
 */
 
 //**********card type Logic**************
@@ -321,17 +338,28 @@ var c = document.getElementById("cardHolder");
 	imgDiv.setAttribute("ondblclick", "flipCard("+cardCounter+")");
 	c.appendChild(imgDiv);
     
-    $.post("/draw_card", { "randCard": randCard }, function(data) {
-    	drawCard(cardCounter, randCard, data);
-    });
+    //$.post("/draw_card", { "randCard": randCard }, function(data) {
+    //	drawCard(cardCounter, randCard, data);
+    //});
+	//function emit(randCard) {
+		//namespace = '/test';
+		//var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+		
+		socket.emit('my event', {"randCard": randCard});
+		
+	//	return false;
+	//}
 
+	
 	//drawCard(cardCounter, randCard);
-
-	makeDraggable(cardCounter);
+	//emit(randCard);
+	//makeDraggable(cardCounter);
 	
 	
 
 }
+
+
 
 function makeDraggable(x) {
 $( "#"+x ).draggable();
