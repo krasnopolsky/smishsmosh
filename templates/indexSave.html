@@ -21,7 +21,7 @@
 			console.log(data);
 			drawCard(cardCounter, data.id, data);
 				});
-            
+
 
 /*Things to add
 add card to top 0 right 0 or anywhere really
@@ -337,25 +337,25 @@ var c = document.getElementById("cardHolder");
 	imgDiv.setAttribute("onclick", "bringToFront("+cardCounter+")");
 	imgDiv.setAttribute("ondblclick", "flipCard("+cardCounter+")");
 	c.appendChild(imgDiv);
-    
+
     //$.post("/draw_card", { "randCard": randCard }, function(data) {
     //	drawCard(cardCounter, randCard, data);
     //});
 	//function emit(randCard) {
 		//namespace = '/test';
 		//var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
-		
+
 		socket.emit('my event', {"randCard": randCard});
-		
+
 	//	return false;
 	//}
 
-	
+
 	//drawCard(cardCounter, randCard);
 	//emit(randCard);
 	//makeDraggable(cardCounter);
-	
-	
+
+
 
 }
 
@@ -372,7 +372,7 @@ cardCounter++;
 
 var c = document.getElementById("cardHolder");
 
- 
+
 
 	var imgDiv = document.createElement("div");
 	imgDiv.setAttribute("id", cardCounter);

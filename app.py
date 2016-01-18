@@ -8,11 +8,13 @@ from flask import Flask, render_template, session, request, url_for, redirect, j
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
     close_room, disconnect
 from flask.ext.sqlalchemy import SQLAlchemy
+import swendpoints
 
 app = Flask(__name__)
 app.debug = True
 app.config['SECRET_KEY'] = 'secret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://chirpa:chewbacca5@hothDB.blandmo.com/hothdb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://bkrasnopolsky@localhost/hothdb' #'mysql://chirpa:chewbacca5@hothDB.blandmo.com/hothdb'
+ 
 db = SQLAlchemy(app)
 socketio = SocketIO(app)
 thread = None
@@ -20,14 +22,58 @@ thread = None
 
 db.Model.metadata.reflect(db.engine)
 
+
+
+class decks(db.Model):
+    __table__ = db.Model.metadata.tables['decks']
+
+    def __init__(self,card_array):
+        cardnum = 0
+        for card_id in card_array:
+            cardnum += 1
+            setattr(self,"deck_card_%d" % cardnum, card_id)
+
+
+class games(db.Model):
+    __table__ = db.Model.metadata.tables['games']
+
+    def __init__(self,game_id):
+        self.game_id = game_id
+
+class player_info(db.Model):
+    __table__ = db.Model.metadata.tables['player_info']
+
+    def __init__(self,email,password):
+        self.email = email
+        self.password = password
+
+
 class SWD(db.Model):
 	__table__ = db.Model.metadata.tables['SWD']
 
-cardtest = SWD.query.filter_by(id=0).first()
- 
+
+
+
+
+
+
+
+
+
+
+#cardtest = SWD.query.filter_by(id=0).first()
+
+#playertest = player_info('test','test@test.com')
+#db.session.add(playertest)
+#db.session.commit()
+
+#decktest = decks(insert_card_id_array_here)
+#db.session.add(decktest)
+#db.session.commit()
 
 @app.route('/')
 def index():
+    swendpoints.testdb(SWD)
     return render_template('index.html')
 
 @app.route('/game_engine')
@@ -44,6 +90,20 @@ def rooms():
 		print x.id
 		decknames.append(x.CardName)
 	return render_template('socket.html', decknames=decknames)
+
+
+#Write Database endpoints:
+
+#@app.route('/create_user', methods=['POST'])
+#def create_user():
+
+
+
+@app.route('/create_deck')
+def createdeck():
+    swendpoints.create_deck()
+
+
 
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
@@ -129,12 +189,7 @@ def draw_card():
  id = card.id)
 
 
-def createdeck():
-	deck = []
-	for i in range(60):
-		x = random.randint(1,3445)
-		deck.append(x)
-	return deck
+
 
 
 
