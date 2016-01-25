@@ -1,6 +1,5 @@
 
 
-#import db_definitions
 
 #Data endpoints for SWCCG
 #Nesting these under route decorators in app.py

@@ -1,6 +1,7 @@
 from app import db
 
 
+
 #Copy of db definitions in app.py TO DO: create a model directory for these and remove them from app.py
 
 class decks(db.Model):

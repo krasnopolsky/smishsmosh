@@ -4,52 +4,12 @@
 import random
 import time
 from threading import Thread
-from flask import Flask, render_template, session, request, url_for, redirect, json, jsonify
+from flask import Flask, g, render_template, session, request, url_for, redirect, json, jsonify
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
     close_room, disconnect
-from flask.ext.sqlalchemy import SQLAlchemy
-import swendpoints
 
-app = Flask(__name__)
-app.debug = True
-app.config['SECRET_KEY'] = 'secret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://bkrasnopolsky@localhost/hothdb' #'mysql://chirpa:chewbacca5@hothDB.blandmo.com/hothdb'
- 
-db = SQLAlchemy(app)
-socketio = SocketIO(app)
-thread = None
-
-
-db.Model.metadata.reflect(db.engine)
-
-
-
-class decks(db.Model):
-    __table__ = db.Model.metadata.tables['decks']
-
-    def __init__(self,card_array):
-        cardnum = 0
-        for card_id in card_array:
-            cardnum += 1
-            setattr(self,"deck_card_%d" % cardnum, card_id)
-
-
-class games(db.Model):
-    __table__ = db.Model.metadata.tables['games']
-
-    def __init__(self,game_id):
-        self.game_id = game_id
-
-class player_info(db.Model):
-    __table__ = db.Model.metadata.tables['player_info']
-
-    def __init__(self,email,password):
-        self.email = email
-        self.password = password
-
-
-class SWD(db.Model):
-	__table__ = db.Model.metadata.tables['SWD']
+from app import app, socketio, db
+from db_definitions import SWD
 
 
 
@@ -57,11 +17,6 @@ class SWD(db.Model):
 
 
 
-
-
-
-
-#cardtest = SWD.query.filter_by(id=0).first()
 
 #playertest = player_info('test','test@test.com')
 #db.session.add(playertest)
@@ -73,7 +28,7 @@ class SWD(db.Model):
 
 @app.route('/')
 def index():
-    swendpoints.testdb(SWD)
+    print SWD.query.filter_by(id=0).first()
     return render_template('index.html')
 
 @app.route('/game_engine')
