@@ -31,3 +31,12 @@ class player_info(db.Model):
 class SWD(db.Model):
 	__table__ = db.Model.metadata.tables['SWD']
 
+
+
+class player_decks(db.Model):
+    __table__ = db.Model.metadata.tables['player_decks']
+
+    def __init__(self,player_id,deck_id):
+        self.player_id = player_id
+        self.deck_id = deck_id
+

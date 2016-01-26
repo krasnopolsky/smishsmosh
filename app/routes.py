@@ -3,13 +3,15 @@
 
 import random
 import time
+import json
 from threading import Thread
 from flask import Flask, g, render_template, session, request, url_for, redirect, json, jsonify
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
     close_room, disconnect
 
 from app import app, socketio, db
-from db_definitions import SWD
+from db_definitions import SWD, decks, games, player_info, player_decks
+
 
 
 
@@ -22,9 +24,6 @@ from db_definitions import SWD
 #db.session.add(playertest)
 #db.session.commit()
 
-#decktest = decks(insert_card_id_array_here)
-#db.session.add(decktest)
-#db.session.commit()
 
 @app.route('/')
 def index():
@@ -53,11 +52,25 @@ def rooms():
 #def create_user():
 
 
+#decktest = decks(insert_card_id_array_here)
+#db.session.add(decktest)
+#db.session.commit()
 
-@app.route('/create_deck')
+@app.route('/create_deck', methods=['POST'])
 def createdeck():
-    swendpoints.create_deck()
 
+        data = request.get_json()
+
+        new_deck = decks(data['deck_array'])
+        db.session.add(new_deck)
+        db.session.commit()
+
+        new_player_deck = player_decks(data['player_id'],new_deck.deck_id)
+        db.session.add(new_player_deck)
+        db.session.commit()
+
+        data_view = str((new_deck.deck_id,new_player_deck.player_id,new_player_deck.deck_id))
+        return data_view
 
 
 @app.route('/draw_card', methods=['GET', 'POST'])
