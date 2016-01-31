@@ -9,8 +9,12 @@ from flask import Flask, g, render_template, session, request, url_for, redirect
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
     close_room, disconnect
 
-from app import app, socketio, db
-from db_definitions import SWD, decks, games, player_info, player_decks
+from app import app, socketio, db, login_manager
+from db_definitions import SWD, decks, games, player_info, player_decks, Users
+
+@login_manager.user_loader
+def user_loader(user_id):
+    return Users.query.get(user_id)
 
 
 
@@ -18,11 +22,6 @@ from db_definitions import SWD, decks, games, player_info, player_decks
 
 
 
-
-
-#playertest = player_info('test','test@test.com')
-#db.session.add(playertest)
-#db.session.commit()
 
 
 @app.route('/')
@@ -46,15 +45,7 @@ def rooms():
 	return render_template('socket.html', decknames=decknames)
 
 
-#Write Database endpoints:
 
-#@app.route('/create_user', methods=['POST'])
-#def create_user():
-
-
-#decktest = decks(insert_card_id_array_here)
-#db.session.add(decktest)
-#db.session.commit()
 
 @app.route('/create_deck', methods=['POST'])
 def createdeck():
@@ -72,6 +63,14 @@ def createdeck():
         data_view = str((new_deck.deck_id,new_player_deck.player_id,new_player_deck.deck_id))
         return data_view
 
+@app.route('/get_player_decks', methods=['POST'])
+def get_player_decks():
+    user_id = request.form['player_id']
+    deck_array = (player_decks.query.filter_by(player_id=user_id).all())
+    player_deck_ids = []
+    for deck in deck_array:
+        player_deck_ids.append(deck.deck_id)
+    return str(player_deck_ids)
 
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():

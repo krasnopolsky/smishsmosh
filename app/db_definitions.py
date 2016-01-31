@@ -2,7 +2,26 @@ from app import db
 
 
 
+
 #Copy of db definitions in app.py TO DO: create a model directory for these and remove them from app.py
+class Users(db.Model):
+    __table__ = db.Model.metadata.tables['Users']
+
+    def __init__(self,email,password):
+        self.email = email
+        self.password = password
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.user_id
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def is_anonymous(self):
+        return False
 
 class decks(db.Model):
     __table__ = db.Model.metadata.tables['decks']
