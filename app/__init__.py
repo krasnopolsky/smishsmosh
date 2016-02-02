@@ -8,6 +8,7 @@ from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
     close_room, disconnect
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+from flask.ext.bcrypt import Bcrypt
 import swendpoints
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://bkrasnopolsky@localhost/hothdb'
 socketio = SocketIO(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
+bcrypt = Bcrypt(app)
 
 db = SQLAlchemy(app)
 thread = None
