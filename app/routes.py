@@ -42,11 +42,12 @@ def login():
         user = Users.query.filter_by(email=(form.username.data)).first()
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
+                print user.player_id
                 user.authenticated = True
                 db.session.add(user)
                 db.session.commit()
                 login_user(user)
-                return redirect(url_for('deck_selection'))
+                return redirect(url_for('get_player_decks'))
     return render_template("login.html", form=form)
 
 @app.route('/logout')
@@ -95,17 +96,18 @@ def createdeck():
         return data_view
 
 @app.route('/deck_selection')
+@login_required
 def deck_selection():
     return render_template('deckSelection.html')
 
-@app.route('/get_player_decks', methods=['POST'])
-def get_player_decks():
-    user_id = request.form['player_id']
-    deck_array = (player_decks.query.filter_by(player_id=user_id).all())
+@app.route('/get_player_decks', methods=['GET','POST'])
+@login_required
+def get_player_decks():  
+    deck_array = (player_decks.query.filter_by(player_id=current_user.player_id).all())
     player_deck_ids = []
     for deck in deck_array:
         player_deck_ids.append(deck.deck_id)
-    return str(player_deck_ids)
+    return render_template('deckSelection.html', player_deck_ids=player_deck_ids)
 
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
