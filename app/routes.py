@@ -109,6 +109,14 @@ def get_player_decks():
         player_deck_ids.append(deck.deck_id)
     return render_template('deckSelection.html', player_deck_ids=player_deck_ids)
 
+
+@app.route('/present_lobbies', methods=['GET', 'POST'])
+@login_required
+def present_lobbies():
+    #render available lobbies (emit lobby information to all players, and then start games)
+    return render_template('lobbies.html')
+
+
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
     cardID = request.form['randCard']
@@ -196,6 +204,10 @@ def draw_card():
 
 
 
+@socketio.on('lobby', namespace='/lobby')
+def lobby_selected(lobby):
+    print lobby
+    pass
 
 
 
