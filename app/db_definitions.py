@@ -59,3 +59,11 @@ class player_decks(db.Model):
         self.player_id = player_id
         self.deck_id = deck_id
 
+class player_games(db.Model):
+    __table__ = db.Model.metadata.tables['player_games']
+
+    def __init__(self,game_id,light_player_id,dark_player_id):
+        self.game_id = game_id
+        self.light_player_id = light_player_id
+        self.dark_player_id = dark_player_id
+

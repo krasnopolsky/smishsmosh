@@ -9,7 +9,7 @@ from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.bcrypt import Bcrypt
-import swendpoints
+#import swendpoints
 
 app = Flask(__name__)
 app.debug = True

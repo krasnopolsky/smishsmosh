@@ -1,9 +1,40 @@
+{% extends "base.html" %}
+{% block body %}
 <h1> DECK SELECTION </h1>
+
 <div> {{ current_user.email }}
       {{ current_user.player_id }}
       {{ player_deck_ids }}
 </div>
 
+<div id="player_decks">
+{% for deck in player_deck_ids %}
+
+<label class="btn btn-primary">
+    <input type="radio" name="deckradio" id="deck_{{deck}}" value="{{ deck }}" > {{ deck }}
+</label>
+
+{% endfor %}
+</div>
+
+<button id="start" class="btn"></button>
+
+<button id="join" class="btn"></button>
+
 <form method="GET" action="/logout">
   <input type="submit" name="Logout">
 </form>
+
+<script>
+  $(document).ready(function() {
+    $("#start").click(function() {
+          console.log($('#player_decks input:radio:checked').val());
+          $.post("/start_game", {"selected_deck": $('#player_decks input:radio:checked').val()}, function(data) {
+                console.log("Game Started: " + data);
+            });
+      });
+  });
+</script>
+
+
+{% endblock %}

@@ -4,6 +4,7 @@
 import random
 import time
 import json
+import uuid
 from threading import Thread
 from flask import Flask, g, render_template, session, request, url_for, redirect, json, jsonify
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, \
@@ -13,7 +14,7 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from wtforms import TextField, PasswordField, validators
 
 from app import app, socketio, db, login_manager, bcrypt
-from db_definitions import SWD, decks, games, player_info, player_decks, Users
+from db_definitions import SWD, decks, games, player_info, player_decks, player_games, Users
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -95,10 +96,6 @@ def createdeck():
         data_view = str((new_deck.deck_id,new_player_deck.player_id,new_player_deck.deck_id))
         return data_view
 
-@app.route('/deck_selection')
-@login_required
-def deck_selection():
-    return render_template('deckSelection.html')
 
 @app.route('/get_player_decks', methods=['GET','POST'])
 @login_required
@@ -109,13 +106,30 @@ def get_player_decks():
         player_deck_ids.append(deck.deck_id)
     return render_template('deckSelection.html', player_deck_ids=player_deck_ids)
 
-
+#Going with a unique game ID approach, but keeping this around in case I want to use it later.
 @app.route('/present_lobbies', methods=['GET', 'POST'])
 @login_required
 def present_lobbies():
     #render available lobbies (emit lobby information to all players, and then start games)
     return render_template('lobbies.html')
 
+@app.route('/start_game', methods=['GET', 'POST'])
+@login_required
+def start_game():
+    
+    selected_deck = request.form["selected_deck"]
+    is_light = 1 #data['is_light']
+    
+    game_id = str(uuid.uuid4())[:8]
+    
+    if is_light:
+        new_game = player_games(game_id, current_user.player_id, None)
+    else: 
+        new_game = player_games(game_id, None, current_user.player_id)
+
+    db.session.add(new_game)
+    db.session.commit()
+    return new_game.game_id
 
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
