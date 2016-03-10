@@ -7,14 +7,17 @@
       {{ player_deck_ids }}
 </div>
 
+<form action="/start_game" method="post">
 <div id="player_decks">
 {% for deck in player_deck_ids %}
 
 <label class="btn btn-primary">
-    <input type="radio" name="deckradio" id="deck_{{deck}}" value="{{ deck }}" > {{ deck }}
+    <input type="radio" name="selected_deck" id="selected_deck" value="{{ deck }}" > {{ deck }}
 </label>
 
 {% endfor %}
+<button type="submit">New game</button>
+</form>
 </div>
 
 <button id="start" class="btn"></button>
@@ -26,14 +29,15 @@
 </form>
 
 <script>
-  $(document).ready(function() {
-    $("#start").click(function() {
-          console.log($('#player_decks input:radio:checked').val());
-          $.post("/start_game", {"selected_deck": $('#player_decks input:radio:checked').val()}, function(data) {
-                console.log("Game Started: " + data);
-            });
-      });
-  });
+//  $(document).ready(function() {
+//    $("#start").click(function() {
+//          console.log($('#player_decks input:radio:checked').val());
+//          $.post("/start_game", {"selected_deck": $('#player_decks input:radio:checked').val()}, function(data) {
+//                console.log("Game Started: " + data);
+//                window.location.replace(data);
+//            });
+//      });
+//  });
 </script>
 
 

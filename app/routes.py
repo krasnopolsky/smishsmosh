@@ -14,7 +14,7 @@ from flask.ext.login import login_user, logout_user, login_required, current_use
 from wtforms import TextField, PasswordField, validators
 
 from app import app, socketio, db, login_manager, bcrypt
-from db_definitions import SWD, decks, games, player_info, player_decks, player_games, Users
+from db_definitions import SWD, decks, games, player_info, player_decks, player_games, player_game_deck,  Users
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -129,7 +129,20 @@ def start_game():
 
     db.session.add(new_game)
     db.session.commit()
-    return new_game.game_id
+
+    game_deck = player_game_deck(game_id, current_user.player_id, selected_deck)
+
+    db.session.add(game_deck)
+    db.session.commit()
+
+    return redirect(url_for('load_game', game_id=game_id)) 
+
+
+@app.route('/game/<game_id>')
+def load_game(game_id):
+
+    return render_template('game_engine.html', game_id=game_id)
+
 
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
