@@ -7,7 +7,9 @@
       {{ player_deck_ids }}
 </div>
 
-<form action="/start_game" method="post">
+<!--form action="/start_game" method="post"-->
+<!-- Construct the different join paths via JS -->
+<form action="/join_game" method="post">
 <div id="player_decks">
 {% for deck in player_deck_ids %}
 
@@ -16,6 +18,7 @@
 </label>
 
 {% endfor %}
+<input name="selected_game_id" id="selected_game_id"></input>
 <button type="submit">New game</button>
 </form>
 </div>

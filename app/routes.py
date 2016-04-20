@@ -144,6 +144,31 @@ def load_game(game_id):
     return render_template('game_engine.html', game_id=game_id)
 
 
+@app.route('/join_game', methods = ["GET","POST"])
+def join_game():
+
+    selected_deck = request.form["selected_deck"]
+    selected_game_id = request.form["selected_game_id"]
+
+    target_game = player_games.query.filter_by(game_id=selected_game_id).first()
+    
+    if target_game:
+        if target_game.light_player_id:
+            target_game.dark_player_id = current_user.player_id
+        else:
+            target_game.light_player_id = current_user.player_id
+        
+        db.session.commit()
+        
+
+        return redirect(url_for('load_game', game_id=target_game.game_id)) 
+
+    else:
+        return "No Game Found!"
+
+    #accept game_id, add in some validations, and add player to existing game in db
+    pass
+
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
     cardID = request.form['randCard']
