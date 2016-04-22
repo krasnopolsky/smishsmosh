@@ -261,7 +261,10 @@ def lobby_selected(lobby):
     print lobby
     pass
 
-
+@socketio.on('message', namespace='/test')
+def message_test(data):
+    print data
+    emit('response', data, namespace='/test', broadcast=True)
 
 
 @socketio.on('my event', namespace='/test')
