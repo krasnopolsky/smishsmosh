@@ -8,7 +8,6 @@
 </div>
 
 <!--form action="/start_game" method="post"-->
-<!-- Construct the different join paths via JS -->
 <form action="/join_game" method="post">
 <div id="player_decks">
 {% for deck in player_deck_ids %}
@@ -18,29 +17,35 @@
 </label>
 
 {% endfor %}
-<input name="selected_game_id" id="selected_game_id"></input>
 <button type="submit">New game</button>
-</form>
+
 </div>
+</form>
 
-<button id="start" class="btn"></button>
+<form action="/start_game" method="post">
+<button id="start" type="submit" class="btn"></button>
+<input type="hidden" name="selected_deck" class="deck_input">
+</form>
 
-<button id="join" class="btn"></button>
+<form action="/join_game" method="post">
+<button id="join" type="submit" class="btn"></button>
+<input name="selected_game_id" id="selected_game_id"></input>
+<input type="hidden" name="selected_deck" class="deck_input">
+</form>
 
 <form method="GET" action="/logout">
   <input type="submit" name="Logout">
 </form>
 
-<script>
-//  $(document).ready(function() {
-//    $("#start").click(function() {
-//          console.log($('#player_decks input:radio:checked').val());
-//          $.post("/start_game", {"selected_deck": $('#player_decks input:radio:checked').val()}, function(data) {
-//                console.log("Game Started: " + data);
-//                window.location.replace(data);
-//            });
-//      });
-//  });
+<script type="text/javascript">
+  $(document).ready(function() {
+   $('input#selected_deck').click(function() {
+        var player_deck = $('#player_decks input:radio:checked').val();
+        console.log(player_deck);
+        console.log($('#player_decks input:radio:checked').val());
+        $('.deck_input').val(player_deck);
+            });
+      });
 </script>
 
 
