@@ -158,6 +158,9 @@ def join_game():
         else:
             target_game.light_player_id = current_user.player_id
         
+        game_deck = player_game_deck(target_game.game_id, current_user.player_id, selected_deck)
+
+        db.session.add(game_deck)
         db.session.commit()
         
 
