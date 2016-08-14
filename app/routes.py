@@ -66,19 +66,6 @@ def logout():
 def engine():
 	return render_template('indexSave.html')
 
-@app.route('/rooms', methods=['POST'])
-def rooms():
-	deck = []
-	decknames = []
-	deck = createdeck()
-	cardnames = (SWD.query.filter(SWD.id.in_(deck)).all())
-	for x in cardnames:
-		print x.id
-		decknames.append(x.CardName)
-	return render_template('socket.html', decknames=decknames)
-
-
-
 
 @app.route('/create_deck', methods=['POST'])
 def createdeck():
@@ -278,9 +265,16 @@ def fetch_deck_cards(selected_deck):
 
 #Socket functions - these probably make sense here, but might move them.
 
-@socketio.on('connect', namespace='/in_game')
-def player_connect():
-    emit('response', "Player " + str(current_user.player_id) + " connected!", namespace='/in_game', broadcast=True)
+@socketio.on('join', namespace='/in_game')
+def player_connect(room):
+    print "Player joined " + room
+    join_room(room)
+    emit('response', 
+            "Player " + str(current_user.player_id) + " connected!",
+            namespace='/in_game',
+            room=room,
+            broadcast=True)
+
 
 @socketio.on('lobby', namespace='/lobby')
 def lobby_selected(lobby):
