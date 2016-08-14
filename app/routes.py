@@ -135,12 +135,20 @@ def start_game():
     db.session.add(game_deck)
     db.session.commit()
 
+    selected_deck = (decks.query.filter_by(deck_id=selected_deck).first()) 
+    print selected_deck
+    game_data = {"game_id": game_id, "game_deck":selected_deck}
+    print game_data
+
     return redirect(url_for('load_game', game_id=game_id)) 
+
+
+
+
 
 
 @app.route('/game/<game_id>')
 def load_game(game_id):
-
     return render_template('game_engine.html', game_id=game_id)
 
 
@@ -171,6 +179,9 @@ def join_game():
 
     #accept game_id, add in some validations, and add player to existing game in db
     pass
+
+
+
 
 @app.route('/draw_card', methods=['GET', 'POST'])
 def draw_card():
@@ -257,20 +268,32 @@ def draw_card():
 
 
 
+#Non-route helper functions - probably makes sense to move these to their own file.
 
+def fetch_deck_cards(selected_deck):
+    pass
+
+
+
+
+#Socket functions - these probably make sense here, but might move them.
+
+@socketio.on('connect', namespace='/in_game')
+def player_connect():
+    emit('response', "Player " + str(current_user.player_id) + " connected!", namespace='/in_game', broadcast=True)
 
 @socketio.on('lobby', namespace='/lobby')
 def lobby_selected(lobby):
     print lobby
     pass
 
-@socketio.on('message', namespace='/test')
+@socketio.on('message', namespace='/in_game')
 def message_test(data):
     print data
-    emit('response', data, namespace='/test', broadcast=True)
+    emit('response', data, namespace='/in_game', broadcast=True)
 
 
-@socketio.on('my event', namespace='/test')
+@socketio.on('my event', namespace='/in_game')
 def test_message(randCard):
     cardID = randCard['randCard']
     print cardID
