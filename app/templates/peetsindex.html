@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="js/loadArrays.js"></script>
+
+<style>
+/*********************          turnBar          ******************************/
+#turnBar
+{
+width: 100%;
+height: 20%;
+text-align: center;
+background-color: black;
+color: white;
+}
+#turnPhaseText
+{
+text-align: left;
+color: white;
+}
+.turnPhase
+{
+display: inline-block;
+width: 100px;
+height: 45px;
+margin: 6px;
+border: 3px solid green;
+color: white;
+}
+.turnPhase:hover
+{
+background-color: white;
+color: black;
+}
+#turnBarText
+{
+color: white;
+}
+#cardSearchBar
+{
+text-align: right;
+}
+#dSearchCard
+{
+resize: none;
+}
+#zoomButtons
+{
+float:left;
+}
+/****************************          Table          ******************************/
+#table
+{
+width: 100%;
+height: 1200px;
+position: relative;
+background-color: yellow;
+}
+#playerAwayArea
+{
+width: 100%;
+height: 515px;
+background-color: SlateGray;
+}
+#locationArea
+{
+width: 100%;
+height: 270px;
+background-color: LightGray;
+text-align: center;
+overflow-x: auto;
+overflow-y: hidden;
+white-space: nowrap;
+}
+#playerHomeArea
+{
+width: 100%;
+height: 515px;
+background-color: LightSteelBlue;
+}
+.ConT
+{
+height: 343px;
+width: 250px;
+display: inline-block;
+border: 3px solid green;
+margin: 6px;
+overflow-y: hidden;
+}
+#bottomSpaceHolder
+{
+width: 100%;
+height: 375px;
+}
+/***************************************          lifeDiv          *********************************/
+#lifeDiv
+{
+width: 30%;
+height: 375px;
+position: fixed;
+left: 0px;
+bottom: 0px;
+}
+#leftLifeDiv
+{
+width: 100%;
+height: 25px;
+background-color: Tan;
+}
+#sliderLifeDiv
+{
+width: 100%;
+}
+#centerLifeDiv
+{
+float: left;
+width: 75%;
+height: 375px;
+background-color: SteelBlue;
+}
+#topLifeDiv
+{
+width: 100%;
+height: 150px;
+overflow: hidden;
+}
+#usedPile
+{
+width: 70%;
+height: 150px;
+left: 10px;
+background-color: LightBlue;
+text-align: center;
+}
+#spaceHolder
+{
+width: 100%;
+height: 20px;
+}
+#bottomLifeDiv
+{
+width: 100%;
+height: 200px;
+}
+#reservePile
+{
+width: 45%;
+height: 150px;
+float: left;
+background-color: SkyBlue;
+text-align: center;
+}
+#forcePile
+{
+width: 45%;
+height: 150px;
+overflow: hidden;
+background-color: PowderBlue;
+text-align: center;
+}
+#rightLifeDiv
+{
+float: left;
+width: 25%;
+height: 375px;
+background-color: SeaGreen;
+text-align: center;
+}
+/*********************************************          hand          **********************************/
+#hand
+{
+width: 69%;
+height: 375px;
+position: fixed;
+bottom: 0;
+right: 0;
+}
+#sliderHandDiv
+{
+width: 100%;
+height: 375px;
+background-color: gray;
+position: relative;
+}
+#cardsInHand
+{
+width: 100%;
+height: 375px;
+right: 1.5%;
+background-color: Cornsilk;
+position: relative;
+overflow-y: scroll;
+}
+#rightHandDiv
+{
+height: 375px;
+width: 1.5%;
+position: fixed;
+background-color: Tan;
+bottom: 0;
+right: 0;
+}
+.CinH
+{
+height: 343px;
+width: 250px;
+display: inline-block;
+border: 3px solid green;
+margin: 6px;
+overflow: hidden;
+}
+/*********************************************          deck          **********************************/
+#deck
+{
+width: 69%;
+height: 375px;
+position: fixed;
+bottom: 375px;
+right: 0;
+}
+#sliderDeckDiv
+{
+width: 100%;
+height: 375px;
+background-color: gray;
+position: relative;
+}
+#cardsInDeckView
+{
+width: 100%;
+height: 375px;
+right: 1.5%;
+background-color: Cornsilk;
+position: relative;
+overflow-y: scroll;
+}
+#rightDeckDiv
+{
+height: 375px;
+width: 1.5%;
+position: fixed;
+background-color: Tan;
+bottom: 375px;
+right: 0;
+}
+.CinD
+{
+height: 343px;
+width: 250px;
+display: inline-block;
+border: 3px solid green;
+margin: 6px;
+overflow: hidden;
+}
+/*********************************************  button   **************************************/
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+border: 2px solid #4CAF50;
+background-color: #4CAF50;
+    color: white;
+border-radius: 8px;
+}
+
+.button1:hover {
+    background-color: white; 
+    color: black; 
+}
+</style>
+
+
+</head>
+<body>
+<div id="turnBar">
+<div id="turnPhaseText">turnPhase: 1 activate</div>
+<div id="zoomButtons">
+<button id="zIn" class="button button1" onclick="zoomIn()">+</button>
+<button id="zOut" class="button button1" onclick="zoomOut()">-</button>
+</div>
+<div id="cardSearchBar">
+<textarea id="dSearchCardText" rows="1" cols="30" onkeydown="hitEnter(event.keyCode)"></textarea>
+<button id="dSearchCard" class="button button1" onclick="dSearchCard()">search</button>
+<button id="clearTableButton" class="button button1" onclick="clearTable()">reset</button>
+</div>
+<div id="slideTurnBar">
+<div class="turnPhase" id="tP1">activate</div>
+<div class="turnPhase" id="tP2">control</div>
+<div class="turnPhase" id="tP3">deploy</div>
+<div class="turnPhase" id="tP4">battle</div>
+<div class="turnPhase" id="tP5">move</div>
+<div class="turnPhase" id="tP6">draw</div>
+</div>
+<div id="turnBarText">show/hide</div>
+</div>
+
+
+<div id="table">
+<div id="playerAwayArea"></div>
+<div id="locationArea">
+</div>
+<div id="playerHomeArea"></div>
+<div id="bottomSpaceHolder"></div>
+</div>
+
+<div id="lifeDiv">
+<div id="leftLifeDiv"></div>
+<div id="sliderLifeDiv">
+<div id="centerLifeDiv">
+<div id="topLifeDiv">
+<div id="usedPile">
+<button id="cycleU" class="button button1" onclick="cycleUsed()">cycle in used</button>
+</div>
+</div>
+<div id="spaceHolder"></div>
+<div id="bottomLifeDiv">
+<div id="reservePile">
+<button id="Gforce" class="button button1" onclick="gForce()">gen a force</button>
+<button id="Ddestiny" class="button button1" onclick="dDestiny()">draw a des</button>
+<button id="Dhand" class="button button1" onclick="dList()">draw a hand</button>
+</div>
+<div id="forcePile">
+<button id="FPdraw" class="button button1" onclick="fpDraw()">draw a card</button>
+<button id="FPuse" class="button button1" onclick="fpUse()">use a force</button>
+</div>
+</div>
+</div>
+<div id="rightLifeDiv">
+rDeck:<div id="rCount">60</div>
+fPile:<div id="fCount">0</div>
+uPile:<div id="uCount">0</div>
+lPile:<div id="lCount">0</div>
+hand:<div id="hCount">0</div>
+</div>
+</div>
+</div>
+<!--
+<div id="deck">
+<div id="sliderDeckDiv">
+<div id="cardsInDeckView"></div>
+</div>
+<div id="rightDeckDiv"></div>
+</div>
+-->
+<div id="hand">
+<div id="sliderHandDiv">
+<div id="cardsInHand"></div>
+</div>
+<div id="rightHandDiv"></div>
+</div>
+
+
+
+
+</body>
+
+<script>
+//**********************************************************************************************
+//*****************************************Global***********************************************
+//**********************************************************************************************
+
+var numCardsDrawn = 0;
+var numCardsInHand = 0;
+var numCardsOnTable = 0;
+var numCardsInReserveDeck = 60;
+var numCardsInForcePile = 0;
+var numCardsInUsedPile = 0;
+var numCardsInLostPile = 0;
+var turnBarVisible = true;
+var lifeDivVisible = true;
+var handBarVisible = true;
+var deckBarVisible = true;
+var turnState = "light";
+var phaseState = "1";
+var foundCardsCounter = 0;
+var zoomScale = 0;
+var numHomeLocations = 0;
+
+
+var foundCards = [];
+var cardLocations = [];
+cardLocations[0] = [];
+
+
+window.onload = function() {
+$("#cardsInHand").sortable();
+$("#cardsInHand").disableSelection();
+};
+//**********************************************************************************************
+//*****************************************the UI***********************************************
+//**********************************************************************************************
+$(document).ready(function(){
+$("#tP1").click(function(){
+setPhaseState("1");
+});
+$("#tP2").click(function(){
+setPhaseState("2");
+});
+$("#tP3").click(function(){
+setPhaseState("3");
+});
+$("#tP4").click(function(){
+setPhaseState("4");
+});
+$("#tP5").click(function(){
+setPhaseState("5");
+});
+$("#tP6").click(function(){
+setPhaseState("6");
+});
+$("#turnBarText").click(function(){
+if(turnBarVisible){
+$("#slideTurnBar").slideUp("fast");
+turnBarVisible = false;
+}
+else{
+$("#slideTurnBar").slideDown("fast");
+turnBarVisible = true;
+}
+});
+$("#leftLifeDiv").click(function(){
+if(lifeDivVisible){
+$("#lifeDiv").animate({bottom: "-350px"});
+lifeDivVisible = false;
+}
+else{
+$("#lifeDiv").animate({bottom: "0px"});
+lifeDivVisible = true;
+}
+});
+$("#rightHandDiv").click(function(){
+if(handBarVisible){
+$("#hand").animate({width: "1.5%"});
+handBarVisible = false;
+}
+else{
+$("#hand").animate({width: "69%"});
+handBarVisible = true;
+}
+});
+$("#rightDeckDiv").click(function(){
+if(deckBarVisible){
+$("#deck").animate({width: "1.5%"});
+deckBarVisible = false;
+}
+else{
+$("#deck").animate({width: "69%"});
+deckBarVisible = true;
+}
+});
+$("#locationArea").droppable({
+//accept:function() {},
+over:function() {
+//document.getElementById("locationArea").innerHTML = "you can drop that here";
+},
+out:function() {
+//document.getElementById("locationArea").innerHTML = "place starting locations here...";
+},
+drop:function(event, ui) {
+if(ui.draggable.attr('cType') == 'Location'){
+if(ui.draggable.attr('sType') == 'Site'){
+addLocationToTable(ui.draggable.attr('id'), 'S');
+}
+else{
+addLocationToTable(ui.draggable.attr('id'), 'P');
+}
+}
+else{
+
+}
+}
+});
+});
+//**********************************************************************************************
+//***********************************space for kraz's shit**************************************
+//**********************************************************************************************
+
+//**********************************************************************************************
+//*************************************Buttons and shit*****************************************
+//**********************************************************************************************
+function zoomIn(){
+for(var i = 1; i <= numCardsOnTable; i++){
+var cardDivELement = document.getElementById("tC"+i);
+$("#tC"+i).animate({height:'+=22px'}, 2);
+$("#tC"+i).animate({width:'+=16px'}, 2);
+}
+}
+
+function zoomOut(){
+for(var i = 1; i <= numCardsOnTable; i++){
+var cardDivELement = document.getElementById("tC"+i);
+$("#tC"+i).animate({height:'-=22px'}, 2);
+$("#tC"+i).animate({width:'-=16px'}, 2);
+}
+}
+
+function addLocationToTable(L, X){
+var location = L;
+var lDiv = document.getElementById(location);
+numHomeLocations++;
+cardLocations[numHomeLocations] = [0,0];
+var d = document.createElement("div");
+d.id = "hL" + numHomeLocations;
+d.setAttribute('class', 'loc');
+var lA = document.getElementById("locationArea");
+lA.style.height = "1200px";
+$('#'+location).draggable("destroy");
+var locationType = X;
+d.style.position = "relative";
+lDiv.style.top = "0px";
+lDiv.style.left = "0px";
+lDiv.style.position = "relative";
+lDiv.style.textAlign = "left";
+var cardCol = document.createElement("div");
+cardCol.id = "CC" + numHomeLocations;
+cardCol.setAttribute('class', 'cardCol');
+cardCol.style.height = "1200px";
+cardCol.style.top = "0px";
+cardCol.style.verticalAlign = "top";
+cardCol.style.clear = "none";
+cardCol.style.position = "relative";
+cardCol.style.display = "inline-block";
+cardCol.style.marginLeft = "10px";
+cardCol.style.marginRight = "10px";
+cardCol.style.whiteSpace = "normal";
+//cardCol.style.backgroundColor = "Yellow";
+
+var awayPlayerCardArea = document.createElement("div");
+awayPlayerCardArea.id = "aPCA" + numHomeLocations; 
+awayPlayerCardArea.setAttribute('class', 'cardAreaAway');
+awayPlayerCardArea.setAttribute('numHL', numHomeLocations);
+awayPlayerCardArea.setAttribute('sType', numHomeLocations);
+awayPlayerCardArea.style.height = "425px";
+awayPlayerCardArea.style.position = "relative";
+awayPlayerCardArea.style.top = "0px";
+//awayPlayerCardArea.style.backgroundColor = "Blue";
+
+var homePlayerCardArea = document.createElement("div");
+homePlayerCardArea.id = "hPCA" + numHomeLocations; 
+homePlayerCardArea.setAttribute('class', 'cardAreaHome');
+homePlayerCardArea.setAttribute('numHL', numHomeLocations);
+homePlayerCardArea.style.height = "425px";
+homePlayerCardArea.style.position = "relative";
+//homePlayerCardArea.style.backgroundColor = "Green";
+
+if(locationType == 'S'){
+d.style.height = "270px";
+d.style.width = "360px";
+d.style.top = "45px";
+awayPlayerCardArea.style.width = "360px";
+homePlayerCardArea.style.width = "360px";
+homePlayerCardArea.style.top = "45px";
+homePlayerCardArea.setAttribute("sType","Site");
+awayPlayerCardArea.setAttribute("sType","Site");
+}
+else{
+d.style.height = "360px";
+d.style.width = "270px";
+awayPlayerCardArea.style.width = "260px";
+homePlayerCardArea.style.width = "260px";
+homePlayerCardArea.setAttribute("sType","System");
+homePlayerCardArea.setAttribute("sType","System");
+}
+
+lA.appendChild(cardCol);
+cardCol.appendChild(awayPlayerCardArea);
+cardCol.appendChild(d);
+cardCol.appendChild(homePlayerCardArea);
+d.appendChild(lDiv);
+
+$("#aPCA"+numHomeLocations).droppable({
+//accept:function() {},
+over:function() {
+//document.getElementById("locationArea").innerHTML = "you can drop that here";
+},
+out:function() {
+//document.getElementById("locationArea").innerHTML = "place starting locations here...";
+},
+drop:function(event, ui) {
+if(ui.draggable.attr('cType') == 'Character'){
+addCardToTable(ui.draggable.attr('id'), awayPlayerCardArea.id);
+}
+else{
+}
+}
+});
+
+$("#hPCA"+numHomeLocations).droppable({
+//accept:function() {},
+over:function() {
+//document.getElementById("locationArea").innerHTML = "you can drop that here";
+},
+out:function() {
+//document.getElementById("locationArea").innerHTML = "place starting locations here...";
+},
+drop:function(event, ui) {
+if(ui.draggable.attr('cType') == 'Character'){
+addCardToTable(ui.draggable.attr('id'), homePlayerCardArea.id);
+}
+else{
+}
+}
+});
+
+}
+
+function addCardToTable(C, cAID) {
+var cardToAdd = C;
+var cDiv = document.getElementById(cardToAdd);
+var cardAreaID = cAID;
+var cADiv = document.getElementById(cardAreaID);
+cDiv.style.position = "absolute";
+cDiv.style.textAlign = "left";
+var numHL = cADiv.getAttribute('numHL');
+var cardA = cardLocations[numHL][0];
+var cardH = cardLocations[numHL][1];
+var cADivClass = cADiv.className;
+if(cADiv.getAttribute('sType') == 'Site'){
+var filler = 20;
+}
+else{
+var filler = 0;
+}
+if(cADivClass == "cardAreaAway ui-droppable"){
+cDiv.style.top = (cardA*25) + "px";
+cDiv.style.left = ((cardA*10)+filler) + "px";
+cardA++
+cDiv.setAttribute("numHL", numHL);
+cDiv.setAttribute("stackNum", cardA);
+}
+else{
+cDiv.style.top = (cardH*25) + "px";
+cDiv.style.left = ((cardH*10)+filler) + "px";
+cardH++
+cDiv.setAttribute("numHL", numHL);
+cDiv.setAttribute("stackNum", cardH);
+}
+cardLocations[numHL] = [cardA, cardH];
+$('#'+cardToAdd).draggable("destroy");
+cADiv.appendChild(cDiv);
+}
+
+function clearTable(){
+document.getElementById("playerAwayArea").innerHTML = "";
+document.getElementById("playerHomeArea").innerHTML = "";
+document.getElementById("cardsInHand").innerHTML = "";
+foundCards = [];
+numCardsDrawn = 0;
+numCardsInHand = 0;
+numCardsOnTable = 0;
+numCardsInReserveDeck = 60;
+numCardsInForcePile = 0;
+numCardsInUsedPile = 0;
+numCardsInLostPile = 0;
+foundCardsCounter = 0;
+updatePlieValues();
+}
+function dSearchCard() {
+document.getElementById("playerAwayArea").innerHTML = "";
+var searchText = $("#dSearchCardText").val().replace("\n", "");
+foundCardsCounter = 0;
+foundCards = [];
+for(var i = 0; i < 3443; i++){
+if(cardName[i].includes(searchText)){
+var drawSearchCard = i;
+var d = document.createElement("div");
+d.id = "searchText" + drawSearchCard;
+d.className = "button button1";
+d.innerHTML = cardName[drawSearchCard];
+addFoundCard(d, drawSearchCard);
+}
+}
+for(var i = 0; i < foundCards.length; i++){
+document.getElementById("playerAwayArea").appendChild(foundCards[i]);
+}
+}
+function addFoundCard(fC, dSC){
+foundCards[foundCardsCounter] = fC;
+foundCards[foundCardsCounter].onclick = function(){dCard(dSC);};
+foundCardsCounter++;
+}
+function dCard(C){
+var cardNumber = C;
+if(numCardsInReserveDeck >= 1){
+var d = document.createElement("div");
+numCardsOnTable++;
+var newID = "tC" + numCardsOnTable;
+d.id = newID;
+d.className = "ConT";
+d.setAttribute("cID", cardNumber);
+d.setAttribute("cType", cardType[cardNumber]);
+d.setAttribute("sType", subType[cardNumber]);
+d.onclick = function(){bringToFront(newID);};
+document.getElementById("playerHomeArea").appendChild(d);
+drawCard(newID, cardNumber);
+$("#"+newID).draggable();
+setCardColor(newID,  cardNumber);
+//$(".partGameText").draggable({cursor: 'move', axis: "y", containment:[0,60,0,0], scroll: false});
+numCardsInReserveDeck--;
+updatePlieValues();
+}
+else{
+alert("not enough cards in reservePile");
+}
+}
+function hitEnter(e){
+var keyPressed = e;
+if(e == 13){
+dSearchCard();
+document.getElementById("dSearchCardText").value = "aValue";
+document.getElementById("dSearchCardText").value = "";
+}
+else{
+}
+}
+function fpDraw(){
+if(numCardsInForcePile >=1){
+numCardsDrawn++;
+var d = document.createElement("div");
+var newID = "hC" + numCardsDrawn;
+d.id = newID;
+d.className = "CinH";
+document.getElementById("cardsInHand").appendChild(d);
+var randCard = Math.floor(Math.random() * 3443);
+d.setAttribute("cID", randCard);
+d.setAttribute("cType", cardType[randCard]);
+d.setAttribute("sType", subType[randCard]);
+drawCard(newID, randCard);
+setCardColor(newID,  randCard);
+//$("#"+newID).draggable();
+numCardsInHand++;
+numCardsInForcePile--;
+updatePlieValues();
+}
+else{
+alert("not enough cards in fPile");
+}
+}
+
+function deployCard(cTD){
+var cToDeploy = document.getElementById(cTD);
+var cDCost = parseInt(cToDeploy.getAttribute("dcost"));
+if(numCardsInForcePile >= cDCost){
+numCardsInForcePile = numCardsInForcePile - cDCost;
+numCardsInUsedPile = numCardsInUsedPile + cDCost;
+numCardsInHand--;
+numCardsOnTable++;
+document.getElementById("playerHomeArea").appendChild(cToDeploy);
+updatePlieValues();
+document.getElementById("dCardDiv"+cTD).onclick = null;
+}
+else{
+alert("not enough force to deploy card");
+}
+}
+function fpUse(){
+if(numCardsInForcePile >= 1){
+numCardsInForcePile--;
+numCardsInUsedPile++;
+updatePlieValues();
+}
+else{
+alert("not enough cards in fPile");
+}
+}
+function gForce(){
+if(numCardsInReserveDeck >= 1){
+numCardsInReserveDeck--;
+numCardsInForcePile++;
+updatePlieValues();
+}
+else{
+alert("not enough cards in rDeck")
+}
+}
+
+function dDestiny(){
+if(numCardsInReserveDeck >= 1){
+var d = document.createElement("div");
+numCardsOnTable++;
+var newID = "tC" + numCardsOnTable;
+d.id = newID;
+d.className = "ConT";
+d.onclick = function(){bringToFront(newID);};
+document.getElementById("playerHomeArea").appendChild(d);
+var randCard = Math.floor(Math.random() * 3443);
+d.setAttribute("cID", randCard);
+d.setAttribute("cType", cardType[randCard]);
+d.setAttribute("sType", subType[randCard]);
+drawCard(newID, randCard);
+$("#"+newID).draggable();
+setCardColor(newID,  randCard);
+//$(".partGameText").draggable({cursor: 'move', axis: "y", containment:[0,60,0,0], scroll: false});
+numCardsInReserveDeck--;
+updatePlieValues();
+}
+else{
+alert("not enough cards in reservePile");
+}
+}
+function dList() {
+var cList = [84,58,64,76,71,69,42,126,354,79,80,455,597,110,565,654,795,169,301,77,86,44,72,40,45,243,252,30];
+for(var i = 0; i < cList.length; i++){
+var d = document.createElement("div");
+numCardsOnTable++;
+var newCID = "listCard" + numCardsOnTable;
+d.id = newCID;
+d.className = "ConT";
+document.getElementById("playerAwayArea").appendChild(d);
+drawCard(newCID, cList[i]);
+$("#"+newCID).draggable();
+setCardColor(newCID,  cList[i]);
+numCardsInReserveDeck--;
+updatePlieValues();
+}
+}
+function cycleUsed(){
+if(numCardsInUsedPile >= 1){
+numCardsInReserveDeck = numCardsInReserveDeck + numCardsInUsedPile;
+numCardsInUsedPile = 0;
+updatePlieValues();
+}
+else{
+alert("no cards in used pile");
+}
+}
+
+function setPhaseState(s){
+var pS = s;
+phaseState = pS;
+switch(phaseState){
+case "1":
+document.getElementById("turnPhaseText").innerHTML = "turnPhase: 1 activate";
+break;
+case "2":
+document.getElementById("turnPhaseText").innerHTML = "turnPhase: 2 control";
+break;
+case "3":
+document.getElementById("turnPhaseText").innerHTML = "turnPhase: 3 deploy";
+break;
+case "4":
+document.getElementById("turnPhaseText").innerHTML = "turnPhase: 4 battle";
+break;
+case "5":
+document.getElementById("turnPhaseText").innerHTML = "turnPhase: 5 move";
+break;
+case "6":
+document.getElementById("turnPhaseText").innerHTML = "turnPhase: 6 draw";
+break;
+}
+}
+
+function updatePlieValues(){
+document.getElementById("rCount").innerHTML = numCardsInReserveDeck;
+document.getElementById("uCount").innerHTML = numCardsInUsedPile;
+document.getElementById("fCount").innerHTML = numCardsInForcePile;
+document.getElementById("lCount").innerHTML = numCardsInLostPile;
+document.getElementById("hCount").innerHTML = numCardsInHand;
+}
+
+
+//**********************************************************************************************
+//**************************************card type Logic*****************************************
+//**********************************************************************************************
+
+
+function drawCard(d, x)  {
+var div = d; //div to draw card onto
+var cardId = x; //the card's DB id number
+
+var str = cardType[x];
+
+switch(str)  {
+
+case "Location":
+drawSite(d, x);
+break;
+case "Creature":
+drawCreature(d, x);
+break;
+case "Epic Event":
+case "Admiral's Order":
+case "Objective":
+drawBasic(d, x);
+break;
+case "Jedi Test":
+drawCard1(d, x);
+break;
+case "Defensive Shield":
+case "Effect":
+case "Interrupt":
+case "Podracer":
+case "Weapon":
+case "Device":
+drawCard2(d, x);
+break;
+case "Starship":
+case "Vehicle":
+drawCard3(d, x);
+break;
+case "Character":
+drawCard4(d, x);
+break;
+default:
+alert("we lost");
+}
+
+}
+//**********************************************************************************************
+//*********************************Creating the Div framework***********************************
+//**********************************************************************************************
+
+
+function drawBasic(d, x)  {
+var div = document.getElementById(d);
+//div.innerHTML = "drawBasic";
+div.appendChild(drawTop(x));
+div.appendChild(drawDestinyNumber(x));
+div.appendChild(drawLore(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawText(x));
+document.getElementById("gText"+x).style.height = "45%";
+document.getElementById("gText"+x).style.width = "100%";
+document.getElementById("partLore"+x).style.height = "10%";
+}
+
+function drawSite(d, x)  {
+
+var div = document.getElementById(d);
+
+switch(subType[x]){
+case "System":
+div.appendChild(drawTop(x));
+div.appendChild(drawBar(x));
+div.appendChild(drawPic(x));
+break;
+case "Sector":
+div.appendChild(drawTop(x));
+div.appendChild(drawBar(x));
+div.appendChild(drawPic(x));
+break;
+case "Site":
+div.style.height = "250px";
+div.style.width = "343px";
+div.appendChild(drawSiteTop(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawSiteFiller(x));
+div.appendChild(drawSiteGameText(x));
+break;
+default:
+alert("we lost");
+}
+
+}
+
+function drawCreature(d, x)  {
+var div = document.getElementById(d);
+//div.innerHTML = "drawCreature "+x;
+div.appendChild(drawTop(x));
+div.appendChild(drawDestinyNumber(x));
+div.appendChild(drawLore(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawInfoCreature(x));
+div.appendChild(drawText(x));
+document.getElementById("gText"+x).style.width = "100%";
+}
+
+function drawCard1(d, x)  {
+var div = document.getElementById(d);
+//div.innerHTML = "drawCard1 "+x;
+div.appendChild(drawTop(x));
+div.appendChild(drawDestinyNumber(x));
+div.appendChild(drawLore(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawBar(x));
+div.appendChild(drawText(x));
+document.getElementById("gText"+x).style.height = "39%";
+document.getElementById("gText"+x).style.width = "100%";
+document.getElementById("partLore"+x).style.height = "10%";
+}
+
+function drawCard2(d, x)  {
+var div = document.getElementById(d);
+//div.innerHTML = "drawCard "+x;
+div.appendChild(drawTop(x));
+div.appendChild(drawDestinyNumber(x));
+div.appendChild(drawLore(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawBar(x));
+div.appendChild(drawText(x));
+document.getElementById("gText"+x).style.height = "29%";
+document.getElementById("gText"+x).style.width = "100%";
+}
+
+function drawCard3(d, x)  {
+var div = document.getElementById(d);
+//div.innerHTML = "drawCard "+x;
+div.appendChild(drawTop(x));
+div.appendChild(drawDestinyNumber(x));
+div.appendChild(drawLore(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawBar(x));
+div.appendChild(drawInfoBlue(x));
+div.appendChild(drawLeft(x));
+div.appendChild(drawRight(x));
+div.appendChild(drawText(x));
+document.getElementById("gText"+x).style.height = "24%";
+}
+
+function drawCard4(d, x)  {
+var div = document.getElementById(d);
+//div.innerHTML = "drawCard "+x;
+div.appendChild(drawTop(x));
+div.appendChild(drawDestinyNumber(x));
+div.appendChild(drawLore(x));
+div.appendChild(drawPic(x));
+div.appendChild(drawInfo(x));
+div.appendChild(drawLeft(x));
+div.appendChild(drawRight(x));
+div.appendChild(drawText(x));
+document.getElementById("gText"+x).style.height = "29%";
+}
+
+//**********************************************************************************************
+//*******************************adding the parts to the divs***********************************
+//**********************************************************************************************
+
+function drawTop(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "8%";
+cp1.style.width = "88%";
+cp1.style.cssFloat = "left";
+cp1.style.clear = "none";
+//cp1.style.backgroundColor = getCardColor();
+var cT = cardType[x];
+var cardTypeSymbol = "&#10070";
+switch(cT) {
+case "Location":
+cardTypeSymbol = "&#9900";
+break;
+case "Creature":
+cardTypeSymbol = "&#8757";
+break;
+case "Admiral's Order":
+cardTypeSymbol = "&#10702";
+break;
+case "Objective":
+cardTypeSymbol = "&#10036";
+break;
+case "Epic Event":
+cardTypeSymbol = "&#10811";
+break;
+case "Jedi Test":
+cardTypeSymbol = "&#10678";
+break;
+case "Defensive Shield":
+cardTypeSymbol = "&#10804";
+break;
+case "Effect":
+cardTypeSymbol = "&#9639";
+break;
+case "Interrupt":
+cardTypeSymbol = "&#9635";
+break;
+case "Podracer":
+cardTypeSymbol = "&#10825";
+break;
+case "Weapon":
+cardTypeSymbol = "&#8889";
+break;
+case "Device":
+cardTypeSymbol = "&#10070";
+break;
+case "Starship":
+cardTypeSymbol = "&#8927";
+break;
+case "Vehicle":
+cardTypeSymbol = "&#8853";
+break;
+case "Character":
+var cST = subType[x];
+switch(cST){
+case "Imperial":
+cardTypeSymbol = "&#10034";
+break;
+case "Rebel":
+cardTypeSymbol = "&#10022";
+break;
+case "Alien":
+cardTypeSymbol = "&#9867";
+break;
+case "Droid":
+cardTypeSymbol = "&#9881";
+break;
+case "Republic":
+cardTypeSymbol = "";
+break;
+case "Jedi Master":
+cardTypeSymbol = "";
+break;
+default:
+alert("we lost");
+}
+break;
+default:
+alert("we lost");
+}
+cp1.innerHTML = cardTypeSymbol+" || "+cardName[x];
+return cp1;
+}
+
+function drawDestinyNumber(x){
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "8%";
+cp1.style.width = "12%";
+cp1.style.textAlign = "right";
+cp1.style.cssFloat="right";
+cp1.style.clear = "none";
+cp1.style.fontSize = "large";
+cp1.innerHTML = destiny[x];
+return cp1;
+}
+
+function drawLore(x)  {
+var cp1 = document.createElement("div");
+cp1.id = "partLore" + x;
+cp1.setAttribute("class", "partLore");
+cp1.style.height = "20%";
+cp1.style.fontSize = "x-small";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "drawLore || some shit about the card that only the super nerds read and care about. Look at this nerd reading the lore. Nerd.";
+cp1.innerHTML = lore[x];
+return cp1;
+}
+
+function drawPic(x)  {
+var cp1 = document.createElement("div");
+cp1.id = "partPic"+x;
+cp1.setAttribute("class", "partPic");
+if(subType[x] == "Site"){
+cp1.style.height = "65%";
+cp1.style.width = "250px";
+cp1.style.cssFloat = "left";
+}
+else{
+cp1.style.height = "45%";
+}
+if(grouping[x] == "Light"){
+cp1.style.backgroundImage = "url('img/swccgNotFilled.JPG')";
+}
+else{
+cp1.style.backgroundImage = "url('img/swccgFilled.JPG')";
+}
+
+cp1.style.backgroundSize = "250px 100%";
+return cp1
+}
+
+function drawBar(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "partBar");
+cp1.style.height = "6%";
+cp1.style.textAlign = "center";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "drawBar ||  "+x;
+cp1.innerHTML = cardType[x] + "  " + subType[x]
+return cp1;
+}
+
+function drawInfo(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "partCharaInfo");
+cp1.style.height = "6%";
+cp1.style.textAlign = "center";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "Power || Defense || Movement";
+cp1.innerHTML = "P " + power[x] + "  //A " + ability[x] + "  //DV " + armor[x];
+return cp1;
+}
+
+function drawInfoBlue(x) {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "partBlueInfo");
+cp1.style.height = "6%";
+cp1.style.textAlign = "center";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "Power || Defense || Movement";
+cp1.innerHTML = "P " + power[x] + "  //M " + ability[x] + "  //DV " + armor[x];
+return cp1;
+}
+
+function drawInfoCreature(x) {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "partCreatureInfo");
+cp1.style.height = "6%";
+cp1.style.textAlign = "center";
+cp1.innerHTML = "F needs code" + power[x] + "  //Landspeed? " + ability[x] + "  //DV " + armor[x];
+return cp1;
+}
+
+function drawText(x)  {
+var cp1 = document.createElement("div");
+cp1.id = "gText" + x;
+cp1.setAttribute("class", "partGameText");
+cp1.style.height = "30%";
+cp1.style.width = "86%";
+cp1.style.clear = "none";
+cp1.style.margin = "0px";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "drawText ||  The read meat of the game. This is what puts the 'c' in swccg. This shit right here is where it is at. Read this shit to win.";
+cp1.innerHTML = gameText[x];
+cp1.onclick = function(){
+if(cp1.style.overflowY == "scroll")
+{
+cp1.style.overflowY = "hidden";
+}
+else{
+cp1.style.overflowY = "scroll";
+}
+};
+cp1.style.zIndex = "-1";
+return cp1;
+}
+
+function drawLeft(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "40%";
+//cp1.style.backgroundColor = getCardColor();
+cp1.style.width = "5%";
+cp1.style.paddingLeft = "3px";
+cp1.innerHTML = "L";
+cp1.innerHTML = deploy[x] + "<br>" + forfeit[x];
+cp1.style.cssFloat="left";
+return cp1;
+}
+
+function drawRight(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "10%";
+cp1.style.width = "5%";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "R";
+cp1.style.cssFloat="right";
+cp1.style.clear = "none";
+return cp1;
+}
+
+function drawSiteTop(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "8%";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = cardType[x]+" || "+cardName[x];
+return cp1;
+}
+
+function drawSiteGameText(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "27%";
+//cp1.style.backgroundColor = getCardColor();
+cp1.style.clear = "both";
+cp1.innerHTML = gameText[x];
+cp1.onclick = function(){
+if(cp1.style.overflowY == "scroll")
+{
+cp1.style.overflowY = "hidden";
+}
+else{
+cp1.style.overflowY = "scroll";
+}
+};
+cp1.style.zIndex = "-1";
+return cp1;
+}
+
+function drawSiteFiller(x)  {
+var cp1 = document.createElement("div");
+cp1.setAttribute("class", "part");
+cp1.style.height = "65%";
+cp1.style.width = "93px";
+cp1.style.cssFloat = "right";
+//cp1.style.backgroundColor = getCardColor();
+cp1.innerHTML = "Place for force icon counts";
+return cp1;
+}
+
+
+//**********************************************************************************************
+//****************************************odds and ends*****************************************
+//**********************************************************************************************
+
+
+function randomHexColor() {
+return '#'+Math.floor(Math.random()*16777215).toString(16);
+}
+function getCardColor(){
+return 'AliceBlue';
+}
+function setCardColor(d, x){
+var div = document.getElementById(d);
+switch(cardType[x]){
+case "Creature":
+div.style.backgroundColor = "#84774F";
+break;
+case "Objective":
+case "Epic Event":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#400080";
+div.style.color = "white"
+}
+else{
+div.style.backgroundColor = "#9669FE";
+}
+break;
+case "Jedi Test":
+div.style.backgroundColor = "#334d00";
+break;
+case "Defensive Shield":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#196666";
+div.style.color = "white"
+}
+else{
+div.style.backgroundColor = "#00cc99";
+}
+break;
+case "Effect":
+case "Interrupt":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#971c1c";
+div.style.color = "white"
+}
+else{
+//div.style.backgroundColor = "#ff3333";
+div.style.backgroundColor = "#FF7575";
+}
+break;
+case "Podracer":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#971c1c";
+div.style.color = "white"
+}
+else{
+//div.style.backgroundColor = "#ff3333";
+div.style.backgroundColor = "#FF7575";
+}
+break;
+case "Weapon":
+case "Device":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#008000";
+div.style.color = "white"
+}
+else{
+div.style.backgroundColor = "#1FCB4A";
+}
+break;
+case "Starship":
+case "Vehicle":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#000080";
+div.style.color = "white"
+}
+else{
+div.style.backgroundColor = "#4d79ff";
+}
+break;
+case "Character":
+case "Location":
+case "Admiral's Order":
+if(grouping[x] == "Dark"){
+div.style.backgroundColor = "#384047";
+div.style.color = "white"
+}
+else{
+div.style.backgroundColor = "Silver";
+}
+break;
+default:
+alert("we lost");
+}
+
+}
+function bringToFront(x)  {
+for(var i = 1; i <= numCardsOnTable; i++)  {
+document.getElementById("tC"+i).style.zIndex = i;
+}
+document.getElementById(x).style.zIndex = i++;
+document.getElementById("lifeDiv").style.zIndex = i++;
+document.getElementById("hand").style.zIndex = i++;
+}
+
+
+</script>
+
+</html>
