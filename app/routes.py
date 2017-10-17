@@ -28,7 +28,6 @@ class LoginForm(Form):
 
 
 
-
 @app.route('/')
 def index():
     print SWD.query.filter_by(id=0).first()
@@ -275,11 +274,10 @@ def player_connect(room):
             room=room,
             broadcast=True)
 
-
-@socketio.on('lobby', namespace='/lobby')
-def lobby_selected(lobby):
-    print lobby
+@socketio.on('start_game', namespace='in_game')
+def start_game(data):
     pass
+    #finish sending client "start game" data to this socket
 
 @socketio.on('message', namespace='/in_game')
 def message_test(data):

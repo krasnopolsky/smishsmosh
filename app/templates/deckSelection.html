@@ -17,18 +17,17 @@
 </label>
 
 {% endfor %}
-<button type="submit">New game</button>
 
 </div>
 </form>
 
 <form action="/start_game" method="post">
-<button id="start" type="submit" class="btn"></button>
+<button id="start" type="submit" class="btn">Start Game</button>
 <input type="hidden" name="selected_deck" class="deck_input">
 </form>
 
 <form action="/join_game" method="post">
-<button id="join" type="submit" class="btn"></button>
+<button id="join" type="submit" class="btn">Join Game</button>
 <input name="selected_game_id" id="selected_game_id"></input>
 <input type="hidden" name="selected_deck" class="deck_input">
 </form>
